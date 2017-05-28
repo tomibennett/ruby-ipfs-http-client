@@ -1,0 +1,2 @@
+Error: no IPFS repo found in /root/.ipfs.
+please run: 'ipfs init'

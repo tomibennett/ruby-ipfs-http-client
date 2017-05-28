@@ -1,0 +1,13 @@
+{
+	"ID": "QmfKeymyKySoRHK6yVopcszYbisew9FRTqGHjasbo2oSeY",
+	"PublicKey": "CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDLJApNPZT1nnsy9WxFckuvEuPPCFw/G7TVakCL3XZ8JJQgALBF0baopGFHV+XQCa+QTF0UFv5HwggNdas/UrXUW4abJ1u/0d82G+UEqwTnFJpPIRfw6tLVN79Ta/4AwnZWjA2HBVo4TDh1EayOv0uDuWhC5Qc2dvvnf0sawEwvAR4ZlRUbiZw5cCP8pfTT0uTpaFr63zzvhZKvTqonyqpTd+MqceI1oLyAsPYZqQrqLUp4Z59LCnw4JPlZWMAKSTc/UHmE/4bpfrNu6l/IeIm5tjvhH6ytzowRdE+zLEMN4JFO0UsTBgeLrRrG3YGRsrRxhqUaeCSCiZ636hjxnFZtAgMBAAE=",
+	"Addresses": [
+		"/ip6/::1/tcp/4001/ipfs/QmfKeymyKySoRHK6yVopcszYbisew9FRTqGHjasbo2oSeY",
+		"/ip4/127.0.0.1/tcp/4001/ipfs/QmfKeymyKySoRHK6yVopcszYbisew9FRTqGHjasbo2oSeY",
+		"/ip4/192.168.1.78/tcp/4001/ipfs/QmfKeymyKySoRHK6yVopcszYbisew9FRTqGHjasbo2oSeY",
+		"/ip4/176.159.112.200/tcp/4001/ipfs/QmfKeymyKySoRHK6yVopcszYbisew9FRTqGHjasbo2oSeY",
+		"/ip4/176.159.112.200/tcp/39561/ipfs/QmfKeymyKySoRHK6yVopcszYbisew9FRTqGHjasbo2oSeY"
+	],
+	"AgentVersion": "go-ipfs/0.4.9/d6983801d",
+	"ProtocolVersion": "ipfs/0.1.0"
+}
