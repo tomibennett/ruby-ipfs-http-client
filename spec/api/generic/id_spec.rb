@@ -1,71 +1,38 @@
-require_relative '../../../lib/ipfs-api'
+require_relative '../../../lib/api/generic/id'
 
-describe IPFS::Client do
+describe Ipfs::Command::Id do
   let(:node_id) { File.read File.join('spec', 'fixtures', 'id.json')  }
-  let(:uri) { 'http://localhost:5001/api/v0/id' }
 
-  it 'is an IPFS::Client' do
-    expect(described_class.new).to be_a IPFS::Client
+  it 'has the default path' do
+    expect(described_class::PATH).to eq '/id'
   end
 
-  describe '#id' do
-    context 'when daemon is started' do
-      before do
-        stub_request(:get, uri)
-          .to_return(
-            status: 200,
-            headers: { 'Content-Type': 'application/json' },
-            body: node_id
-          )
-      end
+  describe '.parse_response' do
+    let(:response) { described_class.parse_response node_id }
 
-      let!(:client_id) { described_class.id }
-
-      it 'calls the Ipfs API' do
-        expect(WebMock).to have_requested(:get, uri)
-      end
-
-      it 'hashes the response' do
-        expect(client_id).to be_a Hash
-      end
-
-      it 'has the correct ID' do
-        expect(client_id["ID"]).to eq JSON.parse(node_id)["ID"]
-      end
-
-      it 'has the correct PublicKey' do
-        expect(client_id["PublicKey"]).to eq JSON.parse(node_id)["PublicKey"]
-      end
-
-      it 'has the correct Addresses' do
-        expect(client_id["Addresses"])
-          .to contain_exactly *(JSON.parse(node_id)["Addresses"])
-      end
-
-      it 'has the correct AgentVersion' do
-        expect(client_id["AgentVersion"]).to eq JSON.parse(node_id)["AgentVersion"]
-      end
-
-      it 'has the correct PublicKey' do
-        expect(client_id["PublicKey"]).to eq JSON.parse(node_id)["PublicKey"]
-      end
+    it 'parse the response' do
+      expect(response).to be_a Hash
     end
 
-    context 'when daemon is not started' do
-      before do
-        stub_request(:get, uri)
-          .to_raise(HTTP::ConnectionError.new)
-      end
+    it 'has the correct ID' do
+      expect(response["ID"]).to eq JSON.parse(node_id)["ID"]
+    end
 
-      let!(:client_id) { described_class.id }
+    it 'has the correct PublicKey' do
+      expect(response["PublicKey"]).to eq JSON.parse(node_id)["PublicKey"]
+    end
 
-      it 'fail to call the Ipfs API' do
-        expect(client_id).to include("error")
-      end
+    it 'has the correct Addresses' do
+      expect(response["Addresses"])
+        .to contain_exactly *(JSON.parse(node_id)["Addresses"])
+    end
 
-      it 'has a response containing an error message' do
-        expect(client_id['description']).to eq "Daemon is not running"
-      end
+    it 'has the correct AgentVersion' do
+      expect(response["AgentVersion"]).to eq JSON.parse(node_id)["AgentVersion"]
+    end
+
+    it 'has the correct PublicKey' do
+      expect(response["PublicKey"]).to eq JSON.parse(node_id)["PublicKey"]
     end
   end
 end

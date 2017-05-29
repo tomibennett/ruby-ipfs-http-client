@@ -1,15 +1,16 @@
-require 'http'
+require_relative '../../client'
 
-module IPFS
-  class Client
-    def self.id
-      begin
-        JSON.parse HTTP.get 'http://localhost:5001/api/v0/id'
-      rescue HTTP::ConnectionError => e
-        {
-          "error" => e.message,
-          "description" => "Daemon is not running"
-        }
+module Ipfs
+  module Command
+    class Id
+      PATH = '/id'
+
+      def self.make_request
+        parse_response Client.call_api method: :get, path: PATH
+      end
+
+      def self.parse_response response
+        JSON.parse response
       end
     end
   end
