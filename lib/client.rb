@@ -11,7 +11,7 @@ module Ipfs
       begin
         HTTP.request(command[:method], url(command[:path]))
       rescue HTTP::ConnectionError
-        {}
+        '{}'
       end
     end
 
