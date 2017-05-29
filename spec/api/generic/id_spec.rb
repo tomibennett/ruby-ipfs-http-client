@@ -1,4 +1,4 @@
-require_relative '../../../lib/api/generic/id'
+require_relative '../../../lib/ipfs-api'
 
 describe IPFS::Client do
   let(:node_id) { File.read File.join('spec', 'fixtures', 'id.json')  }
