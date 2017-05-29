@@ -1,1 +1,1 @@
-require_relative './ipfs'
+require_relative './api/generic/id'
