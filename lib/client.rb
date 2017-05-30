@@ -1,16 +1,25 @@
 require 'http'
+require 'uri'
 
-module IPFS
+module Ipfs
   class Client
-    URL = 'http://localhost:5001/api/v0/'
+    BASE_HOST = 'localhost'
+    BASE_PORT = 5001
+    BASE_PATH = '/api/v0'
 
-
-    def self.request method, query_string
+    def self.call_api command
       begin
-        HTTP.request(method, "#{URL}#{query_string}")
+        HTTP.request(command[:method], url(command[:path]))
       rescue HTTP::ConnectionError
         {}
       end
+    end
+
+    def self.url command_path
+      URI::HTTP.build \
+        host: BASE_HOST,
+        port: BASE_PORT,
+        path: "#{BASE_PATH}#{command_path}"
     end
   end
 end
