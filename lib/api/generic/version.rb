@@ -2,8 +2,8 @@ require_relative '../../client'
 
 module Ipfs
   module Command
-    class Id
-      PATH = '/id'
+    class Version
+      PATH = '/version'
 
       def self.make_request
         parse_response Client.call_api method: :get, path: PATH
