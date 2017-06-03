@@ -7,6 +7,15 @@ describe Ipfs::Command::Id do
     expect(described_class::PATH).to eq '/id'
   end
 
+  describe '.make_request' do
+    let(:request) { described_class.make_request }
+
+    it 'returns a valid request' do
+      expect(request[:method]).to eq :get
+      expect(request[:path]).to eq described_class::PATH
+    end
+  end
+
   describe '.parse_response' do
     let(:response) { described_class.parse_response node_id }
 
