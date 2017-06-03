@@ -6,7 +6,10 @@ module Ipfs
       PATH = '/version'
 
       def self.make_request
-        parse_response Client.call_api method: :get, path: PATH
+        {
+          method: :get,
+          path: PATH
+        }
       end
 
       def self.parse_response response
