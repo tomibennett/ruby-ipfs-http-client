@@ -8,6 +8,6 @@ module Ipfs
   end
 
   def self.version
-    Command::Version.make_request
+    Command::Version.parse_response Client.call_api Command::Version.make_request
   end
 end
