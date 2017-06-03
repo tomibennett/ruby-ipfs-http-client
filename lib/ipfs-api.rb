@@ -1,3 +1,4 @@
+require_relative './client'
 require_relative './api/generic/id'
 require_relative './api/generic/version'
 
