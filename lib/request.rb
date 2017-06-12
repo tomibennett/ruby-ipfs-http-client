@@ -16,7 +16,11 @@ module Ipfs
     end
 
     def call_api command
-      HTTP.request(command[:method], url(command[:path]))
+      HTTP.request(
+        command[:method],
+        url(command[:path]),
+        params: command[:params]
+      )
     end
 
     def url command_path
