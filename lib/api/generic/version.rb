@@ -1,5 +1,3 @@
-require_relative '../../client'
-
 module Ipfs
   module Command
     class Version
