@@ -1,9 +1,9 @@
 require 'http'
 require 'uri'
 
-require_relative '../lib/client'
+require_relative '../lib/request'
 
-RSpec.describe Ipfs::Client do
+RSpec.describe Ipfs::Request do
   let(:client) { described_class.new }
   let(:stub_url) { client.url command[:path] }
   let(:command) do

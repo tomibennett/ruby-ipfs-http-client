@@ -2,7 +2,7 @@ require 'http'
 require 'uri'
 
 module Ipfs
-  class Client
+  class Request
     attr_reader :host, :port, :base_path
 
     DEFAULT_HOST = 'localhost'
@@ -23,7 +23,7 @@ module Ipfs
       URI::HTTP.build \
         host: @host,
         port: @port,
-        path: "#{@base_path}#{command_path}"
+        path: @base_path + command_path
     end
   end
 end
