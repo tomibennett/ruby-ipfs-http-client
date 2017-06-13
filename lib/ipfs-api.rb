@@ -9,10 +9,6 @@ module Ipfs
       @request = Request.new server
     end
 
-    def execute command, *args
-      command.parse_response @request.call_api command.make_request *args
-    end
-
     def id
       execute Command::Id
     end
@@ -23,6 +19,12 @@ module Ipfs
 
     def cat multi_hash
       execute Command::Cat, multi_hash
+    end
+
+    private
+
+    def execute command, *args
+      command.parse_response @request.call_api command.make_request *args
     end
   end
 end
