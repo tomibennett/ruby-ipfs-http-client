@@ -23,6 +23,8 @@ module Ipfs
       )
     end
 
+    private
+
     def url command_path
       URI::HTTP.build \
         host: @host,
