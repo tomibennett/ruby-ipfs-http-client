@@ -5,7 +5,7 @@ require_relative '../lib/request'
 
 RSpec.describe Ipfs::Request do
   let(:client) { described_class.new }
-  let(:stub_url) { client.url command[:path] }
+  let(:stub_url) { client.send(:url, command[:path]) }
   let(:command) do
     {
       method: :get,
