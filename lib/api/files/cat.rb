@@ -1,3 +1,4 @@
+require_relative '../../dagnode'
 require_relative '../../errors'
 
 module Ipfs
@@ -15,7 +16,7 @@ module Ipfs
 
       def self.parse_response response
         if response.status.code == 200
-          response.body.to_s
+          DagNode.new response.body
         else
           handle_error response.body
         end
