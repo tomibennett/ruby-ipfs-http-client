@@ -34,11 +34,11 @@ describe Ipfs::Command::Cat do
     end
 
     context 'when provided hash leading to a content' do
-      it 'provides the response as a string' do
+      it 'provides the response a a DagNode' do
         allow(response).to receive_message_chain(:status, :code) { 200 }
         allow(response).to receive(:body) { "A content" }
 
-        expect(described_class.parse_response response).to eq "A content"
+        expect(described_class.parse_response response).to be_an Ipfs::DagNode
       end
     end
   end
