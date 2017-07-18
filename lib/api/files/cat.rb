@@ -16,7 +16,7 @@ module Ipfs
 
       def self.parse_response response
         if response.status.code == 200
-          DagNode.new response.body
+          DagNode.new response
         else
           handle_error response.body
         end

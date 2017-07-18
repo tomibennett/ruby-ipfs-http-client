@@ -19,27 +19,11 @@ describe Ipfs::Command::Cat do
   describe '.parse_response' do
     let(:response) { double("HTTP::Response") }
 
-    context 'when provided hash leading to a directory' do
-      it 'throws an error informing that the dag node was invalid' do
-        allow(response).to receive_message_chain(:status, :code) { 500 }
-        allow(response).to receive(:body) {
-          File.read \
-            File.join('spec', 'fixtures', 'api', 'files', 'cat_invalid_dag_node.json')
-        }
+    it 'provides the response a a DagNode' do
+      allow(response).to receive_message_chain(:status, :code) { 200 }
+      allow(response).to receive(:body) { "A content" }
 
-        expect {
-          described_class.parse_response response
-        }.to raise_error(Ipfs::Error::InvalidDagNode, "this dag node is a directory")
-      end
-    end
-
-    context 'when provided hash leading to a content' do
-      it 'provides the response a a DagNode' do
-        allow(response).to receive_message_chain(:status, :code) { 200 }
-        allow(response).to receive(:body) { "A content" }
-
-        expect(described_class.parse_response response).to be_an Ipfs::DagNode
-      end
+      expect(described_class.parse_response response).to be_an Ipfs::DagNode
     end
   end
 end
