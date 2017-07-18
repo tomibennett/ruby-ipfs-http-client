@@ -15,15 +15,7 @@ module Ipfs
       end
 
       def self.parse_response response
-        if response.status.code == 200
-          DagNode.new response
-        else
-          handle_error response.body
-        end
-      end
-
-      def self.handle_error error
-        raise Error::InvalidDagNode.new JSON.parse(error)["Message"]
+        DagNode.new response
       end
     end
   end
