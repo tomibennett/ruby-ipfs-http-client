@@ -1,6 +1,6 @@
 module Ipfs
   module Error
-    class InvalidDagNode < StandardError
+    class InvalidDagStream < StandardError
     end
   end
 end
