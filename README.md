@@ -8,9 +8,9 @@ Summary:
 
 1. [Usage](#usage)
    1. [Initializing the client](#initializing-the-client)
-   2. [The `id` command](#id)
-   3. [The `version` command](#version)
-   4. [The `cat` command](#cat)
+   2. [`id` command](#id)
+   3. [`version` command](#version)
+   4. [`cat` command](#cat)
 2. [Currently supported commands](#currently-supported-commands)
 3. [Coming soon](#coming-soon)
 
@@ -41,13 +41,13 @@ You can also specify non-default `host`, `port` and `base_path` for the API loca
 client = IPfs::Client.new host: "192.168.1.42", port: 1337, base_path: "/api/v1"
 ```
 
-## [The `id` command](#id)
+## [`id` command](#id)
 
 ```ruby
 client.id # Hash {"ID" => ..., "PublicKey" => ..., ...}
 ```
 
-## [The `version` command](#version)
+## [`version` command](#version)
 
 ```ruby
 client.version # Hash {"Version" => ..., "Commit" => ..., ...}
@@ -55,7 +55,7 @@ client.version # Hash {"Version" => ..., "Commit" => ..., ...}
 
 ## [The `cat` command](#cat)
 
-_to write_
+_Implemented. Need to be documented_
 
 # [Currently supported commands](#currently-supported-commands)
 
@@ -65,5 +65,6 @@ _to write_
 
 # [Coming soon](#coming-soon)
 - ls
+- add
 - key
 - pubsub
