@@ -32,7 +32,19 @@ RSpec.describe Ipfs::DagStream do
       end
 
       it "contains the Ipfs server's response" do
-        expect(dag_stream.content).to be_a response.body.class
+        expect(dag_stream.content).to be_a response.class
+      end
+
+      describe '#to_s' do
+        it 'returns the content' do
+          expect(dag_stream.to_s).to eq "A content"
+        end
+      end
+
+      describe '.to_str' do
+        it 'returns the content' do
+          expect(dag_stream.to_str).to eq "A content"
+        end
       end
     end
   end
