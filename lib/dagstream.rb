@@ -4,11 +4,11 @@ module Ipfs
   class DagStream
     attr_reader :content
 
-    def initialize http_response
-      if http_response.status.code == 200
-        @content = http_response.body
+    def initialize response
+      if response.status.code == 200
+        @content = response
       else
-        raise Error::InvalidDagStream.new JSON.parse(http_response.body)["Message"]
+        raise Error::InvalidDagStream.new JSON.parse(response.body)["Message"]
       end
     end
   end
