@@ -1,4 +1,4 @@
-require_relative '../../dagnode'
+require_relative '../../dagstream'
 require_relative '../../errors'
 
 module Ipfs
@@ -15,7 +15,7 @@ module Ipfs
       end
 
       def self.parse_response response
-        DagNode.new response
+        DagStream.new response
       end
     end
   end

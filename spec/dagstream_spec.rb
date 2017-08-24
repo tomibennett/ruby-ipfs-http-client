@@ -1,6 +1,6 @@
-require_relative '../lib/dagnode'
+require_relative '../lib/dagstream'
 
-RSpec.describe Ipfs::DagNode do
+RSpec.describe Ipfs::DagStream do
   describe '.initialize' do
     context 'when response from Ipfs\' API is leading to a directory' do
       let(:response) { double("HTTP::Response") }
@@ -9,12 +9,12 @@ RSpec.describe Ipfs::DagNode do
         allow(response).to receive_message_chain(:status, :code) { 500 }
         allow(response).to receive(:body) {
           File.read \
-                 File.join('spec', 'fixtures', 'api', 'files', 'cat_invalid_dag_node.json')
+                 File.join('spec', 'fixtures', 'api', 'files', 'cat_invalid_dag_stream.json')
         }
 
         expect {
           described_class.new response
-        }.to raise_error(Ipfs::Error::InvalidDagNode, "this dag node is a directory")
+        }.to raise_error(Ipfs::Error::InvalidDagStream, "this dag node is a directory")
         end
     end
 
@@ -25,14 +25,26 @@ RSpec.describe Ipfs::DagNode do
       end
 
       let(:response) { double("HTTP::Response") }
-      let(:dag_node) { described_class.new response }
+      let(:dag_stream) { described_class.new response }
 
       it 'instanciates a dag node' do
-        expect(dag_node).to be_a Ipfs::DagNode
+        expect(dag_stream).to be_a Ipfs::DagStream
       end
 
       it "contains the Ipfs server's response" do
-        expect(dag_node.content).to be_a response.body.class
+        expect(dag_stream.content).to be_a response.class
+      end
+
+      describe '#to_s' do
+        it 'returns the content' do
+          expect(dag_stream.to_s).to eq "A content"
+        end
+      end
+
+      describe '.to_str' do
+        it 'returns the content' do
+          expect(dag_stream.to_str).to eq "A content"
+        end
       end
     end
   end
