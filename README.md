@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/mahloun/ruby-ipfs-api.svg?branch=master)](https://travis-ci.org/mahloun/ruby-ipfs-api)
+[![Coverage Status](https://coveralls.io/repos/github/mahloun/ruby-ipfs-api/badge.svg?branch=master)](https://coveralls.io/github/mahloun/ruby-ipfs-api?branch=master)
 
 # ipfs-api
 
