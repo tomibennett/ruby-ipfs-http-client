@@ -2,7 +2,7 @@ require_relative '../lib/dagstream'
 
 RSpec.describe Ipfs::DagStream do
   describe '.initialize' do
-    context 'when response from Ipfs\' API is leading to a directory' do
+    context "when response from Ipfs API is leading to a directory" do
       let(:response) { double("HTTP::Response") }
 
       it 'throws an error informing that the dag node was invalid' do
@@ -18,7 +18,7 @@ RSpec.describe Ipfs::DagStream do
         end
     end
 
-    context 'when response from Ipfs\' API is leading to a content' do
+    context "when response from Ipfs API is leading to a content" do
       before do
         allow(response).to receive_message_chain(:status, :code) { 200 }
         allow(response).to receive(:body) { "A content" }

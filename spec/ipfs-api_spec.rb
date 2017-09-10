@@ -1,10 +1,10 @@
 require_relative '../lib/ipfs-api'
 
 RSpec.describe Ipfs::Client do
-  let (:client) { described_class.new }
+  let(:client) { described_class.new }
 
   describe 'commands' do
-    let (:commands) { Ipfs::Command::constants }
+    let(:commands) { Ipfs::Command::constants }
 
     it 'has id command loaded' do expect(commands).to include :Id end
 
