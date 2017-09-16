@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.version     = '0.1.0'
   s.date        = Date.today.to_s
   s.summary     = "ipfs client"
-  s.description = "A client library for the IPFS HTTP API, immplemented in Ruby"
+  s.description = "A client library for the IPFS HTTP API, implemented in Ruby"
   s.authors     = ["Thomas Nieto", "Neil Nilou"]
   s.email       = 'thms.no@gmail.com'
   s.files       = Dir["lib/**/*.rb"]
