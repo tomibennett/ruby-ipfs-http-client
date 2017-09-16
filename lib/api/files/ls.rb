@@ -3,7 +3,7 @@ module Ipfs
     class Ls
       PATH = '/ls'
 
-      def self.make_request multi_hash
+      def self.build_request multi_hash
         {
           method: :get,
           path: PATH,

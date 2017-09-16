@@ -5,8 +5,8 @@ describe Ipfs::Command::Version do
     expect(described_class::PATH).to eq '/version'
   end
 
-  describe '.make_request' do
-    let(:request) { described_class.make_request }
+  describe '.build_request' do
+    let(:request) { described_class.build_request }
 
     it 'returns a valid request' do
       expect(request[:method]).to eq :get
