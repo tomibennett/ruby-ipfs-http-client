@@ -6,7 +6,7 @@ module Ipfs
     class Cat
       PATH = '/cat'
 
-      def self.make_request multi_hash
+      def self.build_request multi_hash
         {
           method: :get,
           path: PATH,

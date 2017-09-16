@@ -3,7 +3,7 @@ module Ipfs
     class Version
       PATH = '/version'
 
-      def self.make_request
+      def self.build_request
         {
           method: :get,
           path: PATH
