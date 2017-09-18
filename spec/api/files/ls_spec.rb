@@ -7,8 +7,8 @@ describe Ipfs::Command::Ls do
     expect(described_class::PATH).to eq '/ls'
   end
 
-  describe '.make_request' do
-    let(:request) { described_class.make_request hash }
+  describe '.build_request' do
+    let(:request) { described_class.build_request hash }
 
     it 'returns a valid request' do
       expect(request[:method]).to eq :get

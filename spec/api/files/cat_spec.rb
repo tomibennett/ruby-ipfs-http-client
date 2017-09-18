@@ -5,9 +5,9 @@ describe Ipfs::Command::Cat do
     expect(described_class::PATH).to eq '/cat'
   end
 
-  describe '.make_request' do
+  describe '.build_request' do
     let(:hash) { 'QmRftHo76tGCsxL4UX2tPDoAUUzMKwej3KGdfqoDafwQQd QmRftHo76tGCsxL4UX2tPDoAUUzMKwej3KGdfqoDafwQQd' }
-    let(:request) { described_class.make_request hash }
+    let(:request) { described_class.build_request hash }
 
     it 'returns a valid request' do
       expect(request[:method]).to eq :get

@@ -29,7 +29,7 @@ module Ipfs
     private
 
     def execute command, *args
-      command.parse_response @request.call_api command.make_request *args
+      command.parse_response @request.call_api command.build_request *args
     end
   end
 end
