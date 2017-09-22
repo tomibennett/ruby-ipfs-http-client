@@ -3,15 +3,15 @@ module Ipfs
     class Ls
       PATH = '/ls'
 
-      def self.build_request multi_hash
+      def self.build_request(multi_hash)
         {
           method: :get,
           path: PATH,
-          params: { :arg => multi_hash }
+          params: { arg: multi_hash }
         }
       end
 
-      def self.parse_response response
+      def self.parse_response(response)
         JSON.parse(response.body)['Objects'][0]['Links']
       end
     end

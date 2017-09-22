@@ -10,7 +10,7 @@ module Ipfs
         }
       end
 
-      def self.parse_response response
+      def self.parse_response(response)
         JSON.parse response
       end
     end

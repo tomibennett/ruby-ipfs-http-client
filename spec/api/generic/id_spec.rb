@@ -24,24 +24,24 @@ describe Ipfs::Command::Id do
     end
 
     it 'has the correct ID' do
-      expect(response["ID"]).to eq JSON.parse(node_id)["ID"]
+      expect(response['ID']).to eq JSON.parse(node_id)['ID']
     end
 
     it 'has the correct PublicKey' do
-      expect(response["PublicKey"]).to eq JSON.parse(node_id)["PublicKey"]
+      expect(response['PublicKey']).to eq JSON.parse(node_id)['PublicKey']
     end
 
     it 'has the correct Addresses' do
-      expect(response["Addresses"])
-        .to contain_exactly *(JSON.parse(node_id)["Addresses"])
+      expect(response['Addresses'])
+        .to contain_exactly *(JSON.parse(node_id)['Addresses'])
     end
 
     it 'has the correct AgentVersion' do
-      expect(response["AgentVersion"]).to eq JSON.parse(node_id)["AgentVersion"]
+      expect(response['AgentVersion']).to eq JSON.parse(node_id)['AgentVersion']
     end
 
     it 'has the correct PublicKey' do
-      expect(response["PublicKey"]).to eq JSON.parse(node_id)["PublicKey"]
+      expect(response['PublicKey']).to eq JSON.parse(node_id)['PublicKey']
     end
   end
 end

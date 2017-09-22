@@ -39,7 +39,7 @@ client = Ipfs::Client.new
 You can also specify non-default `host`, `port` and `base_path` for the API location:
 
 ```ruby
-client = IPfs::Client.new host: "192.168.1.42", port: 1337, base_path: "/api/v1"
+client = Ipfs::Client.new host: '192.168.1.42', port: 1337, base_path: '/api/v1'
 ```
 
 ## [`id` command](#id)

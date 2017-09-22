@@ -17,11 +17,11 @@ describe Ipfs::Command::Cat do
   end
 
   describe '.parse_response' do
-    let(:response) { double("HTTP::Response") }
+    let(:response) { double('HTTP::Response') }
 
-    it 'provides the response a a DagStraeam' do
+    it 'provides the response as a DagStream' do
       allow(response).to receive_message_chain(:status, :code) { 200 }
-      allow(response).to receive(:body) { "A content" }
+      allow(response).to receive(:body) { 'A content' }
 
       expect(described_class.parse_response response).to be_an Ipfs::DagStream
     end

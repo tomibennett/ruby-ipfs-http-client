@@ -19,7 +19,7 @@ describe Ipfs::Command::Ls do
 
   describe '.parse_response' do
     context 'multihash given point to a directory' do
-      let(:api_response) { double("HTTP::Response") }
+      let(:api_response) { double('HTTP::Response') }
       let(:parsed_response) { described_class.parse_response api_response }
 
       before do
@@ -31,7 +31,7 @@ describe Ipfs::Command::Ls do
 
       it 'returns a collection containing links to Ipfs objects' do
         expect(parsed_response).to be_an Array
-        expect(parsed_response[0].keys).to eq ["Name", "Hash", "Size", "Type"]
+        expect(parsed_response[0].keys).to eq %w(Name Hash Size Type)
       end
     end
   end
