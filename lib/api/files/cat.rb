@@ -6,15 +6,15 @@ module Ipfs
     class Cat
       PATH = '/cat'
 
-      def self.build_request multi_hash
+      def self.build_request(multi_hash)
         {
           method: :get,
           path: PATH,
-          params: { :arg => multi_hash }
+          params: { arg: multi_hash }
         }
       end
 
-      def self.parse_response response
+      def self.parse_response(response)
         DagStream.new response
       end
     end

@@ -6,7 +6,7 @@ require_relative './api/files/ls'
 
 module Ipfs
   class Client
-    def initialize server = {}
+    def initialize(server = {})
       @request = Request.new server
     end
 
@@ -18,17 +18,17 @@ module Ipfs
       execute Command::Version
     end
 
-    def cat multi_hash
+    def cat(multi_hash)
       execute Command::Cat, multi_hash
     end
 
-    def ls multi_hash
+    def ls(multi_hash)
       execute Command::Ls, multi_hash
     end
 
     private
 
-    def execute command, *args
+    def execute(command, *args)
       command.parse_response @request.call_api command.build_request *args
     end
   end

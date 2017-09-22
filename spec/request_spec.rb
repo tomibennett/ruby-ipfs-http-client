@@ -14,7 +14,7 @@ RSpec.describe Ipfs::Request do
   end
 
   describe '#initialize' do
-    context 'when instanciated without specific information' do
+    context 'when instantiated without specific information' do
       it 'has a default host' do
         expect(client.host).to eq described_class::DEFAULT_HOST
       end
@@ -94,7 +94,7 @@ RSpec.describe Ipfs::Request do
           .to_raise(HTTP::ConnectionError.new)
       end
 
-      it 'fails to perfom call the Ipfs API' do
+      it 'fails to perform call the Ipfs API' do
         expect { client.call_api command }.to raise_error HTTP::ConnectionError
       end
     end

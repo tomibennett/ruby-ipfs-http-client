@@ -9,13 +9,13 @@ module Ipfs
     DEFAULT_PORT = 5001
     DEFAULT_BASE_PATH = '/api/v0'
 
-    def initialize **api_server
+    def initialize(**api_server)
       @host = api_server[:host] || DEFAULT_HOST
       @port = api_server[:port] || DEFAULT_PORT
-      @base_path  = api_server[:base_path] || DEFAULT_BASE_PATH
+      @base_path = api_server[:base_path] || DEFAULT_BASE_PATH
     end
 
-    def call_api command
+    def call_api(command)
       HTTP.request(
         command[:method],
         url(command[:path]),
@@ -25,11 +25,12 @@ module Ipfs
 
     private
 
-    def url command_path
-      URI::HTTP.build \
+    def url(command_path)
+      URI::HTTP.build(
         host: @host,
         port: @port,
         path: @base_path + command_path
+      )
     end
   end
 end
