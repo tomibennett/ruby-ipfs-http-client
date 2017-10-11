@@ -1,1 +1,8 @@
+# compiled package
 *.gem
+
+# floobits
+.floo*
+
+# coveralls
+coverage
