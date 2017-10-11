@@ -11,5 +11,5 @@ Gem::Specification.new do |s|
   s.files       = Dir['lib/**/*.rb']
   s.homepage    =
     'https://github.com/mahloun/ruby-ipfs-api'
-  s.license       = 'MIT'
+  s.license     = 'MIT'
 end
