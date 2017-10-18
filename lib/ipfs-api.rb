@@ -3,6 +3,7 @@ require_relative './api/generic/id'
 require_relative './api/generic/version'
 require_relative './api/files/cat'
 require_relative './api/files/ls'
+require_relative './multihash'
 
 module Ipfs
   class Client
@@ -19,11 +20,11 @@ module Ipfs
     end
 
     def cat(multi_hash)
-      execute Command::Cat, multi_hash
+      execute Command::Cat, Multihash.new(multi_hash)
     end
 
     def ls(multi_hash)
-      execute Command::Ls, multi_hash
+      execute Command::Ls, Multihash.new(multi_hash)
     end
 
     private

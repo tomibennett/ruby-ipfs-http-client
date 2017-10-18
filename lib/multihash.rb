@@ -1,22 +1,26 @@
 require_relative './errors'
 
 module Ipfs
-  VALID_LENGTH = 46
-  FUNCTION_TYPE_CODE = {
-    sha256: 'Q'
-  }
-
-  SHA256_FUNCTION_TYPE_CODE = 'Q'
 
   class Multihash
-    def initialize(hash)
-      @hash = hash
+    attr_reader :hash_func_type, :digest_length, :digest_value
 
-      raise Ipfs::Error::InvalidMultihash, "The hash '#{@hash}' is invalid." unless valid?
+    DEFAULT_LENGTH = 46
+    VALID_DIGEST_LENGTH = 'm'
+    FUNCTION_TYPE_CODE = {
+      sha256: 'Q'
+    }
+
+    def initialize(hash)
+      @hash_func_type = hash[0]
+      @digest_length = hash[1]
+      @digest_value = hash[2..-1]
+
+      raise Ipfs::Error::InvalidMultihash, "The hash '#{raw}' is invalid." unless valid?
     end
 
     def raw
-      @hash
+      "#{@hash_func_type}#{@digest_length}#{@digest_value}"
     end
 
     alias to_s raw
@@ -28,15 +32,11 @@ module Ipfs
     end
 
     def correct_length?
-      @hash.length == VALID_LENGTH
+      raw.length == DEFAULT_LENGTH
     end
 
     def encoded_digest?(encoding)
-      function_type_code == FUNCTION_TYPE_CODE[encoding]
-    end
-
-    def function_type_code
-      @hash[0]
+      @hash_func_type == FUNCTION_TYPE_CODE[encoding]
     end
   end
 end

@@ -1,19 +1,20 @@
 require_relative '../../../lib/api/files/ls'
 
 describe Ipfs::Command::Ls do
-  let(:hash) { 'QmTwSz3dmhMrJHWTBoLkQbUtYtzeGwrkSpaHVzCno87AbK' }
-
   it 'has the default path' do
     expect(described_class::PATH).to eq '/ls'
   end
 
   describe '.build_request' do
-    let(:request) { described_class.build_request hash }
+    let(:multi_hash) { double('Ipfs::Multihash') }
+    let(:request) { described_class.build_request multi_hash }
 
     it 'returns a valid request' do
+      allow(multi_hash).to receive(:raw) { 'QmRftHo76tGCsxL4UX2tPDoAUUzMKwej3KGdfqoDafwQQd' }
+
       expect(request[:method]).to eq :get
       expect(request[:path]).to eq described_class::PATH
-      expect(request[:params]).to include arg: hash
+      expect(request[:params]).to include arg: multi_hash.raw
     end
   end
 
