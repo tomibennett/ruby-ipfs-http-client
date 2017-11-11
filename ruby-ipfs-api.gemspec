@@ -6,8 +6,8 @@ Gem::Specification.new do |s|
   s.date        = Date.today.to_s
   s.summary     = 'ipfs client'
   s.description = 'A client library for the IPFS HTTP API, implemented in Ruby'
-  s.authors     = ['Thomas Nieto', 'Neil Nilou']
-  s.email       = 'thms.no@gmail.com'
+  s.authors     = ['Tom Benett', 'Neil Nilou']
+  s.email       = 'tom@benett.io'
   s.files       = Dir['lib/**/*.rb']
   s.homepage    =
     'https://github.com/mahloun/ruby-ipfs-api'
