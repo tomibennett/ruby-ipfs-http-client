@@ -58,13 +58,13 @@ client.version # Hash {"Version" => ..., "Commit" => ..., ...}
 ## [The `cat` command](#cat)
 
 ```ruby
-client.cat('multihash').to_s # => "data\n"
+client.cat('QmPdrgF7dETUkgQxSEmGVHPj3ff9MjjDJXbXL8wu8BDszp').to_s # => "ruby-ipfs-api\n"
 ```
 
 ## [The `ls` command](#ls)
 
 ```ruby
-client.ls('multihash') # => [{"Name"=>"data", "Hash"=>"multihash", "Size"=>0000, "Type"=>0}, ...]
+client.ls('Qmcc7fRg5h1oVuetPgdfZuQ6tzxGappaDKSDHKDu1DnLGs') # => [{"Name"=>"ruby-ipfs-api", "Hash"=>"QmPdrgF7dETUkgQxSEmGVHPj3ff9MjjDJXbXL8wu8BDszp", "Size"=>22, "Type"=>2}]
 ```
 
 # [Currently supported commands](#currently-supported-commands)
