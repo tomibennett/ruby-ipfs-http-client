@@ -12,9 +12,11 @@ RSpec.describe Ipfs::Base58 do
   describe '.decode' do
     describe 'the base 58 encoded number is passed as sequence of characters' do
       context 'when the sequence is invalid' do
-        it 'returns an base 10 number equal to 0' do
+        it 'returns a base 10 number equal to 0' do
           expect(described_class.decode '').to eq 0
           expect(described_class.decode ';)').to eq 0
+          expect(described_class.decode ";#{described_class::ALPHABET}").to eq 0
+          expect(described_class.decode "#{described_class::ALPHABET};").to eq 0
         end
       end
 
