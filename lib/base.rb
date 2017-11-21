@@ -5,42 +5,33 @@ module Ipfs
 
     def self.decode(number)
       valid?(number) \
-        ? to_byte_array(to_base_10(number))
-        : []
+        ? to_base10(number)
+        : 0
     end
 
-    def self.to_base_10(base58_number)
+    def self.to_base10(base58_number)
       base58_number
         .reverse
         .split(//)
-        .each_with_index.reduce(0) do |base10_number, (base58_numeral, index)|
+        .each_with_index
+        .reduce(0) do |base10_number, (base58_numeral, index)|
         base10_number + ALPHABET.index(base58_numeral) * (BASE**index)
       end
-    end
-
-    def self.to_byte_array(base10_number)
-      [base10_number.to_s(16)].pack('H*').unpack('C*')
     end
 
     def self.valid?(number)
       number.match?(/[#{ALPHABET}]+/)
     end
 
-    def self.encode(byte_array)
-      valid_byte_array(byte_array) \
-        ? to_number(byte_array) \
+    def self.encode(base10_number)
+      base10_number.is_a?(Integer) \
+        ? to_base58(base10_number) \
         : ''
     end
 
-    def self.valid_byte_array(byte_array)
-      !byte_array.empty? && byte_array.find { |value|
-        value < 0 || value > 255
-      }.nil?
-    end
-
-    def self.to_number(byte_array)
-      base10_number = byte_array.pack('C*').unpack('H*').first.to_i(16)
+    def self.to_base58(base10_number)
       base58_number = ''
+
       begin
         base58_number << ALPHABET[base10_number % BASE]
         base10_number /= BASE
