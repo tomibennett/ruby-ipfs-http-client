@@ -20,7 +20,7 @@ module Ipfs
     end
 
     def self.valid?(number)
-      number.match?(/[#{ALPHABET}]+/)
+      number.match?(/\A[#{ALPHABET}]+\z/)
     end
 
     def self.encode(base10_number)
