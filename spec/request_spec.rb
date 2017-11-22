@@ -8,7 +8,7 @@ RSpec.describe Ipfs::Request do
   let(:stub_url) { client.send(:url, command[:path]) }
   let(:command) do
     {
-      method: :get,
+      verb: :get,
       path: '/id'
     }
   end

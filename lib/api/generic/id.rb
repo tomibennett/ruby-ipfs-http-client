@@ -5,7 +5,7 @@ module Ipfs
 
       def self.build_request
         {
-          method: :post,
+          verb: :post,
           path: PATH
         }
       end
