@@ -8,9 +8,9 @@ module Ipfs
 
       def self.build_request(multi_hash)
         {
-          method: :get,
+          verb: :get,
           path: PATH,
-          params: { arg: multi_hash.raw }
+          options: { params: { arg: multi_hash.raw } }
         }
       end
 

@@ -9,7 +9,7 @@ describe Ipfs::Command::Version do
     let(:request) { described_class.build_request }
 
     it 'returns a valid request' do
-      expect(request[:method]).to eq :get
+      expect(request[:verb]).to eq :get
       expect(request[:path]).to eq described_class::PATH
     end
   end
