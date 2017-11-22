@@ -10,7 +10,7 @@ module Ipfs
         {
           verb: :get,
           path: PATH,
-          params: { arg: multi_hash.raw }
+          options: { params: { arg: multi_hash.raw } }
         }
       end
 
