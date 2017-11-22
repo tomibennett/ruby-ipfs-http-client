@@ -19,7 +19,7 @@ module Ipfs
       HTTP.request(
         command[:verb],
         url(command[:path]),
-        params: command[:params]
+        command[:options] ? command[:options] : {}
       )
     end
 
