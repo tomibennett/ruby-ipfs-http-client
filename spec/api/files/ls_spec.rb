@@ -14,7 +14,7 @@ describe Ipfs::Command::Ls do
 
       expect(request[:verb]).to eq :get
       expect(request[:path]).to eq described_class::PATH
-      expect(request[:params]).to include arg: multi_hash.raw
+      expect(request[:options]).to include params: { arg: multi_hash.raw }
     end
   end
 
