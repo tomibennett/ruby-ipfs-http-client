@@ -1,42 +1,49 @@
+require_relative './base'
 require_relative './errors'
 
 module Ipfs
-
   class Multihash
-    attr_reader :hash_func_type, :digest_length, :digest_value
+    attr_reader :hash_func_type, :digest_length
 
-    DEFAULT_LENGTH = 46
-    VALID_DIGEST_LENGTH = 'm'
-    FUNCTION_TYPE_CODE = {
-      sha256: 'Q'
-    }
+    FUNCTIONS = [
+      { name: :sha256, type_code: 0x12, digest_length: 0x20 }
+    ]
 
-    def initialize(hash)
-      @hash_func_type = hash[0]
-      @digest_length = hash[1]
-      @digest_value = hash[2..-1]
+    def initialize(multihash)
+      @base58_encoded = multihash
+      @bytes_encoded = to_bytes
 
-      raise Ipfs::Error::InvalidMultihash, "The hash '#{raw}' is invalid." unless valid?
+      @function = find_hash_function(@bytes_encoded[0])
+
+      raise Error::InvalidMultihash, "The hash func type could not be found" if @function.nil?
+
+      @hash_func_type = @function[:name]
+      @digest_length = @function[:digest_length]
+
+      raise Error::InvalidMultihash,
+            "The hash '#{@base58_encoded}' is invalid." unless correct_length?
+    end
+
+    def to_bytes
+      [Base58.decode(@base58_encoded).to_s(16)]
+        .pack('H*')
+        .unpack('C*')
     end
 
     def raw
-      "#{@hash_func_type}#{@digest_length}#{@digest_value}"
+      @base58_encoded
     end
 
     alias to_s raw
 
     private
 
-    def valid?
-      correct_length? && encoded_digest?(:sha256)
+    def find_hash_function(func_type_code)
+      FUNCTIONS.find { |function| function[:type_code] == func_type_code }
     end
 
     def correct_length?
-      raw.length == DEFAULT_LENGTH
-    end
-
-    def encoded_digest?(encoding)
-      @hash_func_type == FUNCTION_TYPE_CODE[encoding]
+      @digest_length == @bytes_encoded[2..-1].length
     end
   end
 end
