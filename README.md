@@ -12,6 +12,7 @@ Summary:
    2. [`id` command](#id)
    3. [`version` command](#version)
    4. [`cat` command](#cat)
+   5. [`ls` command](#ls)
 2. [Currently supported commands](#currently-supported-commands)
 3. [Coming soon](#coming-soon)
 
@@ -19,13 +20,13 @@ Summary:
 
 ## [Initializing the client](#initializing-the-client)
 
-Make sure you Ipfs' `daemonn` is running, otherwise the client will
-not able to connect and the operation will result in an error:
+Make sure the Ipfs `daemon` is running, otherwise the client will
+not be able to connect and the operation will result in an error:
 
 So, first:
 
 ```bash
-$> ipfs deamon
+$> ipfs daemon
 ```
 
 Then, you can spawn the client:
@@ -56,16 +57,24 @@ client.version # Hash {"Version" => ..., "Commit" => ..., ...}
 
 ## [The `cat` command](#cat)
 
-_Implemented. Need to be documented_
+```ruby
+client.cat('QmPdrgF7dETUkgQxSEmGVHPj3ff9MjjDJXbXL8wu8BDszp').to_s # => "ruby-ipfs-api\n"
+```
+
+## [The `ls` command](#ls)
+
+```ruby
+client.ls('Qmcc7fRg5h1oVuetPgdfZuQ6tzxGappaDKSDHKDu1DnLGs') # => [{"Name"=>"ruby-ipfs-api", "Hash"=>"QmPdrgF7dETUkgQxSEmGVHPj3ff9MjjDJXbXL8wu8BDszp", "Size"=>22, "Type"=>2}]
+```
 
 # [Currently supported commands](#currently-supported-commands)
 
 - id
 - version
 - cat
+- ls
 
 # [Coming soon](#coming-soon)
-- ls
 - add
 - key
 - pubsub
