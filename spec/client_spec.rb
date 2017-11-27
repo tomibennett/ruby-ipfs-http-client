@@ -1,4 +1,4 @@
-require_relative '../lib/ipfs-api'
+require_relative '../lib/client'
 
 RSpec.describe Ipfs::Client do
   let(:client) { described_class.new }

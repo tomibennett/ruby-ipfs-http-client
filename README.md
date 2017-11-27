@@ -32,7 +32,7 @@ $> ipfs daemon
 Then, you can spawn the client:
 
 ```ruby
-require 'ipfs-api'
+require 'ipfs_api'
 
 client = Ipfs::Client.new
 ```
