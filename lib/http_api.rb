@@ -15,7 +15,7 @@ module Ipfs
       @base_path = api_server[:base_path] || DEFAULT_BASE_PATH
     end
 
-    def call_api(command)
+    def call(command)
       HTTP.request(
         command[:verb],
         url(command[:path]),
