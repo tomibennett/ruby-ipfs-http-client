@@ -2,7 +2,7 @@ require 'http'
 require 'uri'
 
 module Ipfs
-  class Request
+  class HttpApi
     attr_reader :host, :port, :base_path
 
     DEFAULT_HOST = 'localhost'
