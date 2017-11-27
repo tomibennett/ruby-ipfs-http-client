@@ -3,6 +3,7 @@ require_relative './api/generic/id'
 require_relative './api/generic/version'
 require_relative './api/files/cat'
 require_relative './api/files/ls'
+require_relative './api/files/add'
 require_relative './multihash'
 
 module Ipfs
@@ -25,6 +26,10 @@ module Ipfs
 
     def ls(multi_hash)
       execute Command::Ls, Multihash.new(multi_hash)
+    end
+
+    def add(filepath)
+      execute Command::Add, filepath
     end
 
     private
