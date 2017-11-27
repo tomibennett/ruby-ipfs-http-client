@@ -1,9 +1,9 @@
 require 'http'
 require 'uri'
 
-require_relative '../lib/request'
+require_relative '../lib/http_api'
 
-RSpec.describe Ipfs::Request do
+RSpec.describe Ipfs::HttpApi do
   let(:client) { described_class.new }
   let(:stub_url) { client.send(:url, command[:path]) }
   let(:command) do
@@ -83,9 +83,9 @@ RSpec.describe Ipfs::Request do
     end
   end
 
-  describe '#call_api' do
+  describe '#call' do
     it 'takes hash as command' do
-      expect(client).to respond_to(:call_api).with(1).argument
+      expect(client).to respond_to(:call).with(1).argument
     end
 
     context 'when IPFS daemon is not started' do
@@ -95,7 +95,7 @@ RSpec.describe Ipfs::Request do
       end
 
       it 'fails to perform call the Ipfs API' do
-        expect { client.call_api command }.to raise_error HTTP::ConnectionError
+        expect { client.call command }.to raise_error HTTP::ConnectionError
       end
     end
 
@@ -106,7 +106,7 @@ RSpec.describe Ipfs::Request do
       end
 
       it 'calls the Ipfs API' do
-        expect(client.call_api(command).status).to eq 200
+        expect(client.call(command).status).to eq 200
       end
     end
   end

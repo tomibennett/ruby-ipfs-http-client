@@ -2,7 +2,7 @@ require 'http'
 require 'uri'
 
 module Ipfs
-  class Request
+  class HttpApi
     attr_reader :host, :port, :base_path
 
     DEFAULT_HOST = 'localhost'
@@ -15,7 +15,7 @@ module Ipfs
       @base_path = api_server[:base_path] || DEFAULT_BASE_PATH
     end
 
-    def call_api(command)
+    def call(command)
       HTTP.request(
         command[:verb],
         url(command[:path]),

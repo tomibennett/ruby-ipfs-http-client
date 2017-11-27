@@ -1,4 +1,4 @@
-require_relative './request'
+require_relative './http_api'
 require_relative './api/generic/id'
 require_relative './api/generic/version'
 require_relative './api/files/cat'
@@ -8,7 +8,7 @@ require_relative './multihash'
 module Ipfs
   class Client
     def initialize(server = {})
-      @request = Request.new server
+      @http_api = HttpApi.new server
     end
 
     def id
@@ -30,7 +30,7 @@ module Ipfs
     private
 
     def execute(command, *args)
-      command.parse_response @request.call_api command.build_request *args
+      command.parse_response @http_api.call command.build_request *args
     end
   end
 end
