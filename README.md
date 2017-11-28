@@ -9,10 +9,10 @@ Summary:
 
 1. [Usage](#usage)
    1. [Initializing the client](#initializing-the-client)
-   2. [id command](#id)
-   3. [version command](#version)
-   4. [cat command](#cat)
-   5. [ls command](#ls)
+   2. [id command](#id-command)
+   3. [version command](#version-command)
+   4. [cat command](#cat-command)
+   5. [ls command](#ls-command)
 2. [Currently supported commands](#currently-supported-commands)
 3. [Coming soon](#coming-soon)
 
@@ -43,25 +43,25 @@ You can also specify non-default `host`, `port` and `base_path` for the API loca
 client = Ipfs::Client.new host: '192.168.1.42', port: 1337, base_path: '/api/v1'
 ```
 
-## [id command](#id)
+## [id command](#id-command)
 
 ```ruby
 client.id # Hash {"ID" => ..., "PublicKey" => ..., ...}
 ```
 
-## [version command](#version)
+## [version command](#version-command)
 
 ```ruby
 client.version # Hash {"Version" => ..., "Commit" => ..., ...}
 ```
 
-## [cat command](#cat)
+## [cat command](#cat-command)
 
 ```ruby
 client.cat('QmPdrgF7dETUkgQxSEmGVHPj3ff9MjjDJXbXL8wu8BDszp').to_s # => "ruby-ipfs-api\n"
 ```
 
-## [ls command](#ls)
+## [ls command](#ls-command)
 
 ```ruby
 client.ls('Qmcc7fRg5h1oVuetPgdfZuQ6tzxGappaDKSDHKDu1DnLGs')
