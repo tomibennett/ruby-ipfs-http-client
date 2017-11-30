@@ -4,10 +4,7 @@ module Ipfs
       PATH = '/id'
 
       def self.build_request
-        {
-          verb: :post,
-          path: PATH
-        }
+        Command.build_request(PATH)
       end
 
       def self.parse_response(response)

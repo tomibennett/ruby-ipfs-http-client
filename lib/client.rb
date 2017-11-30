@@ -1,8 +1,5 @@
 require_relative './http_api'
-require_relative './api/generic/id'
-require_relative './api/generic/version'
-require_relative './api/files/cat'
-require_relative './api/files/ls'
+require_relative './api/command'
 require_relative './multihash'
 
 module Ipfs
@@ -19,12 +16,12 @@ module Ipfs
       execute Command::Version
     end
 
-    def cat(multi_hash)
-      execute Command::Cat, Multihash.new(multi_hash)
+    def cat(multihash)
+      execute Command::Cat, multihash
     end
 
-    def ls(multi_hash)
-      execute Command::Ls, Multihash.new(multi_hash)
+    def ls(multihash)
+      execute Command::Ls, multihash
     end
 
     private

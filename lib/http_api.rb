@@ -17,9 +17,9 @@ module Ipfs
 
     def call(command)
       HTTP.request(
-        command[:verb],
-        url(command[:path]),
-        command[:options] ? command[:options] : {}
+        command.verb,
+        url(command.path),
+        command.options
       )
     end
 
