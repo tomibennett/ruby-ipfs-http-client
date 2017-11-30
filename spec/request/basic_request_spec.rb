@@ -2,7 +2,7 @@ require_relative '../../lib/request/basic_request'
 
 RSpec.describe Ipfs::BasicRequest do
   let(:id_path) { '/id' }
-  let(:multi_hash) { double("Ipfs::Multihash", raw: 'Qmfootruc') }
+  let(:multihash) { double("Ipfs::Multihash", raw: 'Qmfootruc') }
 
   describe '.initialize' do
     it 'needs at least a path to be instantiated' do
@@ -14,7 +14,7 @@ RSpec.describe Ipfs::BasicRequest do
     end
 
     it 'can take an optional multihash' do
-      expect(described_class.new id_path, multi_hash: multi_hash).to be_a described_class
+      expect(described_class.new id_path, multihash: multihash).to be_a described_class
     end
   end
 
@@ -44,10 +44,10 @@ RSpec.describe Ipfs::BasicRequest do
     end
 
     context 'request instantiated with a multihash' do
-      let(:id_request) { described_class.new id_path, multi_hash: multi_hash }
+      let(:id_request) { described_class.new id_path, multihash: multihash }
 
       it 'gives back the multihash wrapped in a format understandable for HTTP library' do
-        expect(id_request.options).to eq params: { arg: multi_hash.raw }
+        expect(id_request.options).to eq params: { arg: multihash.raw }
       end
     end
   end

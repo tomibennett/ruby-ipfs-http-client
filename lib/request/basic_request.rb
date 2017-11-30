@@ -5,12 +5,12 @@ module Ipfs
     def initialize(path, **arguments)
       super(path, :get)
 
-      @multi_hash = arguments[:multi_hash]
+      @multihash = arguments[:multihash]
     end
 
     def options
-      @multi_hash \
-        ? { params: { arg: @multi_hash.raw } }
+      @multihash \
+        ? { params: { arg: @multihash.raw } }
         : {}
     end
   end

@@ -16,12 +16,12 @@ module Ipfs
       execute Command::Version
     end
 
-    def cat(multi_hash)
-      execute Command::Cat, multi_hash
+    def cat(multihash)
+      execute Command::Cat, multihash
     end
 
-    def ls(multi_hash)
-      execute Command::Ls, Multihash.new(multi_hash)
+    def ls(multihash)
+      execute Command::Ls, Multihash.new(multihash)
     end
 
     private

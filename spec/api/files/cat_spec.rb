@@ -8,8 +8,8 @@ describe Ipfs::Command::Cat do
 
   describe '.build_request' do
     context 'multihash is valid' do
-      let(:multi_hash) { 'QmYqt8otasXXSrqEw32CwfAK7BFdciW9E9oej52JnVabfW' }
-      let(:request) { described_class.build_request multi_hash }
+      let(:multihash) { 'QmYqt8otasXXSrqEw32CwfAK7BFdciW9E9oej52JnVabfW' }
+      let(:request) { described_class.build_request multihash }
 
       it 'returns a request' do
         expect(request).to be_a_kind_of Ipfs::Request
@@ -24,7 +24,7 @@ describe Ipfs::Command::Cat do
       end
 
       it 'has a request options containing the multihash' do
-        expect(request.options).to eq params: { arg: multi_hash }
+        expect(request.options).to eq params: { arg: multihash }
       end
     end
 

@@ -6,15 +6,15 @@ describe Ipfs::Command::Ls do
   end
 
   describe '.build_request' do
-    let(:multi_hash) { double('Ipfs::Multihash') }
-    let(:request) { described_class.build_request multi_hash }
+    let(:multihash) { double('Ipfs::Multihash') }
+    let(:request) { described_class.build_request multihash }
 
     it 'returns a valid request' do
-      allow(multi_hash).to receive(:raw) { 'QmRftHo76tGCsxL4UX2tPDoAUUzMKwej3KGdfqoDafwQQd' }
+      allow(multihash).to receive(:raw) { 'QmRftHo76tGCsxL4UX2tPDoAUUzMKwej3KGdfqoDafwQQd' }
 
       expect(request[:verb]).to eq :get
       expect(request[:path]).to eq described_class::PATH
-      expect(request[:options]).to include params: { arg: multi_hash.raw }
+      expect(request[:options]).to include params: { arg: multihash.raw }
     end
   end
 

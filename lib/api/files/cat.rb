@@ -5,8 +5,8 @@ module Ipfs
     class Cat
       PATH = '/cat'
 
-      def self.build_request(multi_hash)
-        Command.build_request(PATH, multi_hash: Ipfs::Multihash.new(multi_hash))
+      def self.build_request(multihash)
+        Command.build_request(PATH, multihash: Ipfs::Multihash.new(multihash))
       end
 
       def self.parse_response(response)
