@@ -84,10 +84,6 @@ RSpec.describe Ipfs::HttpApi do
   end
 
   describe '#call' do
-    it 'takes hash as command' do
-      expect(client).to respond_to(:call).with(1).argument
-    end
-
     context 'when IPFS daemon is not started' do
       before do
         stub_request(:get, stub_url)
