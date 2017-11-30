@@ -17,7 +17,7 @@ module Ipfs
     end
 
     def cat(multi_hash)
-      execute Command::Cat, Multihash.new(multi_hash)
+      execute Command::Cat, multi_hash
     end
 
     def ls(multi_hash)

@@ -4,6 +4,7 @@ require_relative './files/cat'
 require_relative './files/ls'
 
 require_relative '../request/basic_request'
+require_relative '../multihash'
 
 module Ipfs
   module Command

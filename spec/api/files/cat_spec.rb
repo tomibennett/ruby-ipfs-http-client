@@ -7,28 +7,31 @@ describe Ipfs::Command::Cat do
   end
 
   describe '.build_request' do
-    let(:multi_hash) {
-      double(
-        'Ipfs::Multihash',
-        raw: 'QmRftHo76tGCsxL4UX2tPDoAUUzMKwej3KGdfqoDafwQQd'
-      )
-    }
-    let(:request) { described_class.build_request multi_hash }
+    context 'multihash is valid' do
+      let(:multi_hash) { 'QmYqt8otasXXSrqEw32CwfAK7BFdciW9E9oej52JnVabfW' }
+      let(:request) { described_class.build_request multi_hash }
 
-    it 'returns a request' do
-      expect(request).to be_a_kind_of Ipfs::Request
+      it 'returns a request' do
+        expect(request).to be_a_kind_of Ipfs::Request
+      end
+
+      it 'has a request where the path is the commands one' do
+        expect(request.path).to eq described_class::PATH
+      end
+
+      it 'has a request where the verb is GET' do
+        expect(request.verb).to eq :get
+      end
+
+      it 'has a request options containing the multihash' do
+        expect(request.options).to eq params: { arg: multi_hash }
+      end
     end
 
-    it 'has a request where the path is the commands one' do
-      expect(request.path).to eq described_class::PATH
-    end
-
-    it 'has a request where the verb is GET' do
-      expect(request.verb).to eq :get
-    end
-
-    it 'has a request without options' do
-      expect(request.options).to eq params: { arg: multi_hash.raw }
+    context 'multihash is invalid' do
+      it 'cannot perform the request' do
+        expect { described_class.build_request '' }.to raise_error Ipfs::Error::InvalidMultihash
+      end
     end
   end
 
