@@ -5,13 +5,8 @@ require_relative '../lib/http_api'
 
 RSpec.describe Ipfs::HttpApi do
   let(:http_api) { described_class.new }
-  let(:stub_url) { http_api.send(:url, command[:path]) }
-  let(:command) do
-    {
-      verb: :get,
-      path: '/id'
-    }
-  end
+  let(:stub_url) { http_api.send(:url, command.path) }
+  let(:command) { double('Ipfs::Request', verb: :get, path: '/id', options: {}) }
 
   describe '#initialize' do
     context 'when instantiated without specific information' do
@@ -79,7 +74,7 @@ RSpec.describe Ipfs::HttpApi do
     end
 
     it 'contains the command path' do
-      expect(stub_url.path.split('/').last).to eq command[:path].split('/').last
+      expect(stub_url.path.split('/').last).to eq command.path.split('/').last
     end
   end
 
