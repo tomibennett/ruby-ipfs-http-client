@@ -1,8 +1,5 @@
 require_relative './http_api'
-require_relative './api/generic/id'
-require_relative './api/generic/version'
-require_relative './api/files/cat'
-require_relative './api/files/ls'
+require_relative './api/command'
 require_relative './multihash'
 
 module Ipfs
