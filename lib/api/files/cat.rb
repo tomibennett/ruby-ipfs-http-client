@@ -1,5 +1,4 @@
 require_relative '../../dagstream'
-require_relative '../../errors'
 
 module Ipfs
   module Command
