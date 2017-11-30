@@ -1,3 +1,4 @@
+require_relative '../../../lib/api/command'
 require_relative '../../../lib/api/generic/id'
 
 describe Ipfs::Command::Id do
@@ -10,9 +11,20 @@ describe Ipfs::Command::Id do
   describe '.build_request' do
     let(:request) { described_class.build_request }
 
-    it 'returns a valid request' do
-      expect(request[:verb]).to eq :post
-      expect(request[:path]).to eq described_class::PATH
+    it 'returns a request' do
+      expect(request).to be_a_kind_of Ipfs::Request
+    end
+
+    it 'has a request where the path is the commands one' do
+      expect(request.path).to eq described_class::PATH
+    end
+
+    it 'has a request where the verb is GET' do
+      expect(request.verb).to eq :get
+    end
+
+    it 'has a request without options' do
+      expect(request.options).to eq Hash.new
     end
   end
 
