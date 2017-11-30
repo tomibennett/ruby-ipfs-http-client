@@ -4,11 +4,7 @@ module Ipfs
       PATH = '/ls'
 
       def self.build_request(multihash)
-        {
-          verb: :get,
-          path: PATH,
-          options: { params: { arg: multihash.raw } }
-        }
+        Command.build_request(PATH, multihash: Ipfs::Multihash.new(multihash))
       end
 
       def self.parse_response(response)

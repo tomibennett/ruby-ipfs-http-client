@@ -21,7 +21,7 @@ module Ipfs
     end
 
     def ls(multihash)
-      execute Command::Ls, Multihash.new(multihash)
+      execute Command::Ls, multihash
     end
 
     private
