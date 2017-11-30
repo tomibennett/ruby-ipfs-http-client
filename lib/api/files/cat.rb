@@ -6,11 +6,7 @@ module Ipfs
       PATH = '/cat'
 
       def self.build_request(multi_hash)
-        {
-          verb: :get,
-          path: PATH,
-          options: { params: { arg: multi_hash.raw } }
-        }
+        Command.build_request(PATH, multi_hash: multi_hash)
       end
 
       def self.parse_response(response)
