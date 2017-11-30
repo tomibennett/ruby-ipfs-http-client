@@ -10,7 +10,7 @@ module Ipfs
     def self.build_request(path, **arguments)
       keys = arguments.keys
 
-      if keys.include?(:multihash)
+      if keys.include?(:multi_hash)
         BasicRequest.new(path, multi_hash: arguments[:multi_hash])
       else
         BasicRequest.new(path)
