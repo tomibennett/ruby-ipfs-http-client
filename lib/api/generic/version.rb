@@ -4,10 +4,7 @@ module Ipfs
       PATH = '/version'
 
       def self.build_request
-        {
-          verb: :get,
-          path: PATH
-        }
+        Command.build_request(PATH)
       end
 
       def self.parse_response(response)
