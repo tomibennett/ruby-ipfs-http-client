@@ -13,6 +13,8 @@ RSpec.describe Ipfs::Client do
     it 'has cat command loaded' do expect(commands).to include :Cat end
 
     it 'has ls command loaded' do expect(commands).to include :Ls end
+
+    it 'has add command loaded' do expect(commands).to include :Add end
   end
 
   it 'responds to id' do
@@ -29,5 +31,9 @@ RSpec.describe Ipfs::Client do
 
   it 'responds to ls' do
     expect(client).to respond_to(:ls).with(1).argument
+  end
+
+  it 'responses to add' do
+    expect(client).to respond_to(:add).with(1).argument
   end
 end
