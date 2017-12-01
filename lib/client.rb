@@ -24,6 +24,10 @@ module Ipfs
       execute Command::Ls, multihash
     end
 
+    def add(filepath)
+      execute Command::Add, filepath
+    end
+
     private
 
     def execute(command, *args)
