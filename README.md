@@ -1,3 +1,4 @@
+[![Gem Version](https://badge.fury.io/rb/ruby-ipfs-api.svg)](https://badge.fury.io/rb/ruby-ipfs-api)
 [![Build Status](https://travis-ci.org/tbenett/ruby-ipfs-api.svg?branch=master)](https://travis-ci.org/tbenett/ruby-ipfs-api)
 [![Coverage Status](https://coveralls.io/repos/github/tbenett/ruby-ipfs-api/badge.svg?branch=master)](https://coveralls.io/github/tbenett/ruby-ipfs-api?branch=master)
 
@@ -13,6 +14,7 @@ Summary:
    3. [version command](#version-command)
    4. [cat command](#cat-command)
    5. [ls command](#ls-command)
+   6. [add command](#add-command)
 2. [Currently supported commands](#currently-supported-commands)
 3. [Coming soon](#coming-soon)
 
@@ -65,7 +67,21 @@ client.cat('QmPdrgF7dETUkgQxSEmGVHPj3ff9MjjDJXbXL8wu8BDszp').to_s # => "ruby-ipf
 
 ```ruby
 client.ls('Qmcc7fRg5h1oVuetPgdfZuQ6tzxGappaDKSDHKDu1DnLGs')
-# => [{"Name"=>"ruby-ipfs-api", "Hash"=>"QmPdrgF7dETUkgQxSEmGVHPj3ff9MjjDJXbXL8wu8BDszp", "Size"=>22, "Type"=>2}]
+# => [
+#  {
+#    "Name"=>"ruby-ipfs-api",
+#    "Hash"=>"QmPdrgF7dETUkgQxSEmGVHPj3ff9MjjDJXbXL8wu8BDszp",
+#    "Size"=>22,
+#    "Type"=>2
+#  }
+#]
+```
+
+## [add command](#add-command)
+
+```ruby
+client.add('path/to/file')
+# => {"Name"=>"file", "Hash"=>"QmfuUBaR", "Size"=>42 }
 ```
 
 # [Currently supported commands](#currently-supported-commands)
@@ -74,8 +90,8 @@ client.ls('Qmcc7fRg5h1oVuetPgdfZuQ6tzxGappaDKSDHKDu1DnLGs')
 - version
 - cat
 - ls
+- add
 
 # [Coming soon](#coming-soon)
-- add
 - key
 - pubsub
