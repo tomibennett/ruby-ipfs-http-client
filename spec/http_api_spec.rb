@@ -97,30 +97,31 @@ RSpec.describe Ipfs::HttpApi do
     end
   end
 
-  # describe '#call' do
-  #   let(:http_api) { described_class.new }
-  #   let(:stub_url) { http_api.send(:url, command.path) }
-  #
-  #   context 'when IPFS daemon is not started' do
-  #     before do
-  #       stub_request(:get, stub_url)
-  #         .to_raise(HTTP::ConnectionError.new)
-  #     end
-  #
-  #     it 'fails to perform call the Ipfs API' do
-  #       expect { http_api.call command }.to raise_error HTTP::ConnectionError
-  #     end
-  #   end
-  #
-  #   context 'when IPFS daemon is started' do
-  #     before do
-  #       stub_request(:get, stub_url)
-  #         .to_return(status: 200)
-  #     end
-  #
-  #     it 'calls the Ipfs API' do
-  #       expect(http_api.call(command).status).to eq 200
-  #     end
-  #   end
-  # end
+  describe '#call' do
+    let(:http_api) { described_class.new }
+    let(:stub_url) { 'http://localhost:5001/api/v0/id' }
+    let(:id_command) { double('Ipfs::Request', verb: :get, path: '/id', options: {}) }
+
+    context 'when IPFS daemon is not started' do
+      before do
+        stub_request(:get, stub_url)
+          .to_raise(HTTP::ConnectionError.new)
+      end
+
+      it 'fails to perform call the Ipfs API' do
+        expect { http_api.call id_command }.to raise_error HTTP::ConnectionError
+      end
+    end
+
+    context 'when IPFS daemon is started' do
+      before do
+        stub_request(:get, stub_url)
+          .to_return(status: 200)
+      end
+
+      it 'calls the Ipfs API' do
+        expect(http_api.call(id_command).status).to eq 200
+      end
+    end
+  end
 end

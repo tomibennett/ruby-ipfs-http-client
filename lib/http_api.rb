@@ -19,9 +19,9 @@ module Ipfs
     end
 
     def call(command)
-      HTTP.request(
+      @connection.request(
         command.verb,
-        url(command.path),
+        full_path(command.path),
         command.options
       )
     end
