@@ -130,6 +130,12 @@ RSpec.describe Ipfs::HttpApi do
     end
   end
 
+  describe '#version' do
+    it 'returns the current library version' do
+      expect(http_api.version).to eq Ipfs::Client::VERSION
+    end
+  end
+
   context 'below informations are retrieved by a request made in the constructor' do
     let(:client_id_parsed) { JSON.parse client_id }
 

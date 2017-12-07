@@ -1,6 +1,8 @@
 require 'http'
 require 'uri'
 
+require_relative './ipfs_api'
+
 require_relative './errors'
 require_relative './api/command'
 require_relative './api/generic/id'
@@ -8,6 +10,7 @@ require_relative './api/generic/id'
 module Ipfs
   class HttpApi
     attr_reader :host, :port, :base_path, :connection
+    attr_reader :version
     attr_reader :id, :addresses, :public_key, :agent_version
 
     DEFAULT_HOST = 'localhost'
@@ -22,7 +25,10 @@ module Ipfs
 
       ObjectSpace.define_finalizer(self, proc { connection.close })
 
-      tap { |client| retrieve_ids }
+      tap { |client|
+        @version = Client::VERSION
+        retrieve_ids
+      }
     end
 
     def call(command)
