@@ -2,12 +2,17 @@ require_relative '../lib/http_api'
 
 RSpec.describe Ipfs::HttpApi do
   let(:client_id) { File.read File.join('spec', 'fixtures', 'id.json') }
+  let(:daemon_version) { File.read File.join('spec', 'fixtures', 'version.json') }
+
   let(:http_api) { described_class.new }
   let(:id_command_url) { 'http://localhost:5001/api/v0/id' }
 
   before do
     stub_request(:get, id_command_url)
       .to_return(status: 200, body: client_id)
+
+    stub_request(:get, 'http://localhost:5001/api/v0/version')
+      .to_return(status: 200, body: daemon_version)
   end
 
   describe '#initialize' do
@@ -161,6 +166,30 @@ RSpec.describe Ipfs::HttpApi do
     describe '#agent_version' do
       it 'has the correct agent version' do
         expect(http_api.agent_version).to eq client_id_parsed['AgentVersion']
+      end
+    end
+
+    describe '#daemon' do
+      let(:daemon_version_parsed) { JSON.parse daemon_version }
+
+      it 'retrieves the version' do
+        expect(http_api.daemon[:version]).to eq daemon_version_parsed['Version']
+      end
+
+      it 'retrieves the commit' do
+        expect(http_api.daemon[:commit]).to eq daemon_version_parsed['Commit']
+      end
+
+      it 'retrieves the repo' do
+        expect(http_api.daemon[:repo]).to eq daemon_version_parsed['Repo']
+      end
+
+      it 'retrieves the system' do
+        expect(http_api.daemon[:system]).to eq daemon_version_parsed['System']
+      end
+
+      it 'retrieves the Golang version' do
+        expect(http_api.daemon[:golang]).to eq daemon_version_parsed['Golang']
       end
     end
   end

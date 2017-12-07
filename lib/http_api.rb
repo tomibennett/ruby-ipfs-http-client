@@ -12,6 +12,7 @@ module Ipfs
     attr_reader :host, :port, :base_path, :connection
     attr_reader :version
     attr_reader :id, :addresses, :public_key, :agent_version
+    attr_reader :daemon
 
     DEFAULT_HOST = 'localhost'
     DEFAULT_PORT = 5001
@@ -25,9 +26,10 @@ module Ipfs
 
       ObjectSpace.define_finalizer(self, proc { connection.close })
 
-      tap { |client|
+      tap {
         @version = Client::VERSION
         retrieve_ids
+        retrieve_daemon_version
       }
     end
 
@@ -55,6 +57,18 @@ module Ipfs
         @addresses = ids['Addresses']
         @public_key = ids['PublicKey']
         @agent_version = ids['AgentVersion']
+      end
+    end
+
+    def retrieve_daemon_version
+      (Command::Version.parse_response call Command::Version.build_request).tap do |version|
+        @daemon = {
+          version: version['Version'],
+          commit: version['Commit'],
+          repo: version['Repo'],
+          system: version['System'],
+          golang: version['Golang']
+        }
       end
     end
   end
