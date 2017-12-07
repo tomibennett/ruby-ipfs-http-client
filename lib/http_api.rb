@@ -3,7 +3,7 @@ require 'uri'
 
 module Ipfs
   class HttpApi
-    attr_reader :host, :port, :base_path
+    attr_reader :host, :port, :base_path, :connection
 
     DEFAULT_HOST = 'localhost'
     DEFAULT_PORT = 5001
@@ -13,6 +13,9 @@ module Ipfs
       @host = api_server[:host] || DEFAULT_HOST
       @port = api_server[:port] || DEFAULT_PORT
       @base_path = api_server[:base_path] || DEFAULT_BASE_PATH
+      @connection = HTTP.persistent URI::HTTP.build(host: @host, port: @port)
+
+      ObjectSpace.define_finalizer(self, proc { self.connection.close })
     end
 
     def call(command)
