@@ -5,5 +5,8 @@ module Ipfs
 
     class InvalidMultihash < StandardError
     end
+
+    class UnreachableDaemon < StandardError
+    end
   end
 end
