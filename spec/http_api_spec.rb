@@ -93,7 +93,7 @@ RSpec.describe Ipfs::HttpApi do
     let(:http_api) { described_class.new }
 
     it 'returns command path concatenated to the api version also known as base path' do
-      expect(http_api.send(:full_path, command_path)).to eq "#{http_api.base_path}/id"
+      expect(http_api.send(:full_path, command_path)).to eq "#{http_api.base_path}#{command_path}"
     end
   end
 

@@ -28,12 +28,8 @@ module Ipfs
 
     private
 
-    def url(command_path)
-      URI::HTTP.build(
-        host: @host,
-        port: @port,
-        path: @base_path + command_path
-      )
+    def full_path(command_path)
+      "#{@base_path}#{command_path}"
     end
   end
 end
