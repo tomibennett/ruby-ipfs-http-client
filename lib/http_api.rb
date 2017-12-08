@@ -41,7 +41,7 @@ module Ipfs
           command.options
         )
       rescue HTTP::ConnectionError
-        raise Ipfs::Error::UnreachableDaemon.new("IPFS is not reachable.")
+        raise Ipfs::Error::UnreachableDaemon, "IPFS is not reachable."
       end
     end
 
