@@ -5,7 +5,7 @@ rbenv_root="${HOME}/.rbenv"
 if [[ ! -d ${rbenv_root} ]]
 then
   echo 'Downloading rbenv...'
-  cd ${HOME} && git clone https://github.com/rbenv/rbenv.git ${rbenv_root} &> /dev/null
+  git clone https://github.com/rbenv/rbenv.git ${rbenv_root} &> /dev/null
 
   [[ ! `echo ${PATH} | grep '.rbenv'` ]] \
     && echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc \

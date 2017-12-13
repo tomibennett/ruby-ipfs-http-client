@@ -87,6 +87,16 @@ RSpec.configure do |config|
     #     --seed 1234
     config.order = :random
 
+    # clean up Ipfs cache after running specs
+    config.after(:all) do
+      %x(var/bin/clear_garbage_collector.sh)
+    end
+
+    # clean up Ipfs local storage after each spec
+    config.after do
+      %x(var/bin/remove_pinned_objects.sh)
+    end
+
     # Seed global randomization in this process using the `--seed` CLI option.
     # Setting this allows you to use `--seed` to deterministically reproduce
     # test failures related to randomization by passing the same `--seed` value
