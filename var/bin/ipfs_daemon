@@ -1,1 +1,3 @@
+#!/usr/bin/env bash
+
 docker run --name ipfs_daemon -p 5001:5001 -d ipfs/go-ipfs --offline
