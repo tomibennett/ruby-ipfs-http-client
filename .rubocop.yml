@@ -15,3 +15,10 @@ Lint/AmbiguousOperator:
 
 Metrics/BlockLength:
   Enabled: false
+
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/MultilineIfModifier:
+  Enabled: false
