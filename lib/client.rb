@@ -1,8 +1,6 @@
 require 'http'
 require 'uri'
 
-require_relative './ipfs_api'
-
 require_relative './errors'
 require_relative './api/command'
 require_relative './api/generic/id'
@@ -20,7 +18,6 @@ module Ipfs
         @@base_path = DEFAULT_BASE_PATH
 
         @@connection = HTTP.persistent URI::HTTP.build(host: @@host, port: @@port)
-        @@version = Client::VERSION
 
         ObjectSpace.define_finalizer(self, proc { connection.close })
 
@@ -65,7 +62,7 @@ module Ipfs
       end
 
       def version
-        @@version
+        Ipfs::VERSION
       end
 
       def daemon
