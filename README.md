@@ -8,54 +8,110 @@
 
 Summary:
 
-1. [Usage](#usage)
-   1. [Initializing the client](#initializing-the-client)
-   2. [id command](#id-command)
-   3. [version command](#version-command)
-   4. [cat command](#cat-command)
-   5. [ls command](#ls-command)
-   6. [add command](#add-command)
-2. [Currently supported commands](#currently-supported-commands)
-3. [Coming soon](#coming-soon)
 
-# [Usage](#usage)
+1. Client
+2. File objects
+3. Clients related information (debugging purposes)
 
-## [Initializing the client](#initializing-the-client)
 
-Make sure the Ipfs `daemon` is running, otherwise the client will
-not be able to connect and the operation will result in an error:
+## Client
 
-So, first:
+Make sure the Ipfs daemon is running, otherwise
+the client will not be able to connect.
 
-```bash
-$> ipfs daemon
-```
+You'll get an error `Ipfs::UnreachableDaemon` and the program
+execution will stop if no daemon are present.
 
-Then, you can spawn the client:
+The client will make a persistent connection to the API.
+
+To access the library from your source file:
 
 ```ruby
 require 'ipfs_api'
-
-client = Ipfs::Client.new
 ```
 
-You can also specify non-default `host`, `port` and `base_path` for the API location:
+> TODO: use a configuration file and/or environment variables to specify the http api url. 
+Those are hard-coded at the moment :(
+
+## File objects
+
+You can manipulates files through Ipfs with the `Ipfs::File` class.
+
+### Instantiation
+
+To create a file, just pass a path
 
 ```ruby
-client = Ipfs::Client.new host: '192.168.1.42', port: 1337, base_path: '/api/v1'
+file = Ipfs::File.new('path/to/file')
 ```
 
-## [id command](#id-command)
+This will instantiate a new `Ipfs::File` object.
+
+### Adding a file to Ipfs
+
+You can add it to Ipfs with the `add` method:
 
 ```ruby
-client.id # Hash {"ID" => ..., "PublicKey" => ..., ...}
+file.add
 ```
 
-## [version command](#version-command)
+### Retrieve information about the file
+
+The `add` method will return the object and complete some metadata
+that are returned by Ipfs.
+
+Those are `size`, `multihash` and `name`:
 
 ```ruby
-client.version # Hash {"Version" => ..., "Commit" => ..., ...}
+Ipfs::File.new('README.md').add.tap { |file|
+  puts "his hash, returned by Ipfs, is '#{file.multihash}'"
+  puts "the file name is #{file.name}"
+  puts "his size is #{file.size}"
+}
+
+# his hash, returned by Ipfs, is 'QmcK5Six9THFatwK5hxugiSM6bhfEdtvirbpEQXhdcuuqg'
+# the file name is README.md
+# his size is 2275
 ```
+
+## Clients related information (debugging purposes)
+
+Several information about Ipfs and the HTTP API are available through the client object.
+
+#### The peer id
+```ruby
+Ipfs::Client.id
+```
+
+#### The library version
+```ruby
+Ipfs::Client.version
+```
+
+### Adresses and gateways
+
+```ruby
+Ipfs::Client.addresses
+```
+
+### The peer public key
+```ruby
+Ipfs::Client.public_key
+```
+
+### Daemon version, build, commit, etc.
+
+```ruby
+Ipfs::Client.daemon
+```
+
+### The HTTP API's version on which this library is built
+
+```ruby
+Ipfs::Client.api_version
+```
+
+## DEPRECATED
 
 ## [cat command](#cat-command)
 
@@ -67,6 +123,8 @@ client.cat('QmPdrgF7dETUkgQxSEmGVHPj3ff9MjjDJXbXL8wu8BDszp').to_s # => "ruby-ipf
 
 ```ruby
 client.ls('Qmcc7fRg5h1oVuetPgdfZuQ6tzxGappaDKSDHKDu1DnLGs')
+
+
 # => [
 #  {
 #    "Name"=>"ruby-ipfs-api",
@@ -76,22 +134,3 @@ client.ls('Qmcc7fRg5h1oVuetPgdfZuQ6tzxGappaDKSDHKDu1DnLGs')
 #  }
 #]
 ```
-
-## [add command](#add-command)
-
-```ruby
-client.add('path/to/file')
-# => {"Name"=>"file", "Hash"=>"QmfuUBaR", "Size"=>42 }
-```
-
-# [Currently supported commands](#currently-supported-commands)
-
-- id
-- version
-- cat
-- ls
-- add
-
-# [Coming soon](#coming-soon)
-- key
-- pubsub
