@@ -1,4 +1,4 @@
-require_relative '../lib/client'
+require_relative '../lib/ipfs_api'
 
 RSpec.describe Ipfs::Client do
   let(:id_command_url) { 'http://localhost:5001/api/v0/id' }
@@ -62,7 +62,7 @@ RSpec.describe Ipfs::Client do
 
   describe '#version' do
     it 'returns the current library version' do
-      expect(described_class.version).to eq Ipfs::Client::VERSION
+      expect(described_class.version).to eq Ipfs::VERSION
     end
   end
 
