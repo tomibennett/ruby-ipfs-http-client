@@ -1,37 +1,51 @@
 require_relative './multihash'
 require_relative './api/files/add'
+require_relative './api/files/cat'
 
 module Ipfs
   class File
-    attr_reader :multihash, :size, :name
+    attr_reader :path, :multihash, :size, :name
 
-    def initialize(argument)
-      if ::File.file? argument
-        @filepath = argument
-        @content = ::File.read(@filepath)
-      else
-        raise Errno::ENOENT, 'no such file or directory'
-      end
+    def initialize(**attributes)
+      attributes.each { |name, value|
+        instance_variable_set("@#{name}".to_sym, send("init_#{name}", value))
+      }
+
+      @added = false
     end
 
     def add
       tap {
-        Ipfs::Client.execute(Command::Add, @filepath).tap { |response|
-          @multihash = Multihash.new response['Hash']
+        Ipfs::Client.execute(Command::Add, @path).tap { |response|
+          @added = true
+
+          @multihash = init_multihash(response['Hash'])
           @size = response['Size'].to_i
           @name = response['Name']
-        } unless added?
+        } if !@added
       }
     end
 
     def cat
-      @content
+      begin
+        Ipfs::Client.execute(Command::Cat, @multihash).to_s if @multihash
+      rescue Ipfs::Error::InvalidDagStream
+        ''
+      end
     end
 
     private
 
-    def added?
-      @multihash != nil
+    def init_multihash(multihash)
+      multihash.is_a?(Multihash) ? multihash : Multihash.new(multihash)
+    end
+
+    def init_path(path)
+      if ::File.file? path
+        path
+      else
+        raise Errno::ENOENT, 'no such file or directory'
+      end
     end
   end
 end
