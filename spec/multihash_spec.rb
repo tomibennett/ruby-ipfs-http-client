@@ -32,5 +32,11 @@ RSpec.describe Ipfs::Multihash do
         }.to raise_error(Ipfs::Error::InvalidMultihash, "The hash func type could not be found")
       end
     end
+
+    context 'multihash is an unexpected object' do
+      it 'throws an error if the given hash is invalid' do
+        expect { described_class.new 34 }.to raise_error Ipfs::Error::InvalidMultihash
+      end
+    end
   end
 end

@@ -11,6 +11,10 @@ module Ipfs
 
     def initialize(multihash)
       @base58_encoded = multihash
+
+      raise Error::InvalidMultihash,
+            "The hash '#{@base58_encoded}' is invalid." unless @base58_encoded.is_a?(String)
+
       @bytes_encoded = to_bytes
 
       @function = find_hash_function(@bytes_encoded[0])
