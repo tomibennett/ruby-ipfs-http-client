@@ -10,7 +10,7 @@ module Ipfs
 
     def options
       @multihash \
-        ? { params: { arg: @multihash.raw } }
+        ? { params: { arg: @multihash.raw } } \
         : {}
     end
   end

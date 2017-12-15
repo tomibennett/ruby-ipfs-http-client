@@ -1,5 +1,6 @@
 require_relative './multihash'
 require_relative './api/files/add'
+require_relative './api/files/cat'
 
 module Ipfs
   class File
@@ -9,32 +10,34 @@ module Ipfs
       attributes.each { |name, value|
         instance_variable_set("@#{name}".to_sym, send("init_#{name}", value))
       }
+
+      @added = false
     end
 
     def add
       tap {
         Ipfs::Client.execute(Command::Add, @path).tap { |response|
-          @multihash = Multihash.new response['Hash']
+          @added = true
+
+          @multihash = init_multihash(response['Hash'])
           @size = response['Size'].to_i
           @name = response['Name']
-        } unless added?
+        } if !@added
       }
     end
 
     def cat
-      @path ? ::File.read(@path) : ''
+      begin
+        Ipfs::Client.execute(Command::Cat, @multihash).to_s if @multihash
+      rescue Ipfs::Error::InvalidDagStream
+        ''
+      end
     end
 
     private
 
-    def added?
-      !@multihash.nil?
-    end
-
     def init_multihash(multihash)
-      multihash.is_a?(String) \
-        ? Multihash.new(multihash) \
-        : multihash
+      multihash.is_a?(Multihash) ? multihash : Multihash.new(multihash)
     end
 
     def init_path(path)
