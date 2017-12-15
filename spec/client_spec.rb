@@ -38,14 +38,10 @@ RSpec.describe Ipfs::Client do
     end
   end
 
-  # It should return a collection of strings but because we use
-  # an offline version of Ipfs (see <project_root>/var/bin/ipfs_daemon)
-  # we don't have any addresses returned
   describe '#addresses' do
     it 'returns the addresses' do
-      expect(described_class.addresses)
-        .to be_nil
-    end
+      expect(described_class.addresses).to match(a_collection_including(String))
+        end
   end
 
   describe '#public_key' do
