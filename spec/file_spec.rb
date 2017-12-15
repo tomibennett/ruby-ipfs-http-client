@@ -130,6 +130,7 @@ RSpec.describe Ipfs::File do
       let(:multihash) { Ipfs::File.new(path: path).add.multihash }
       let(:file) { Ipfs::File.new(multihash: multihash) }
 
+
       # TODO: file.cat fail unexpectedly
       # 'Error: private key already loaded'.
       # Api Code 0
@@ -137,6 +138,14 @@ RSpec.describe Ipfs::File do
       #
       xit 'returns the file`s content' do
         expect(file.cat).to eq ::File.read path
+      end
+    end
+
+    context 'when the hash is unknown' do
+      let(:file) { Ipfs::File.new(path: path) }
+
+      it 'returns a null value' do
+        expect(file.cat).to be_nil
       end
     end
 
