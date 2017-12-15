@@ -2,7 +2,7 @@ language: ruby
 
 before_install:
   - docker pull ipfs/go-ipfs
-  - docker run --name ipfs_daemon -d -p 5001:5001 ipfs/go-ipfs --offline
+  - sh ./var/bin/ipfsd
 
 rvm:
   - 2.4.2

@@ -13,13 +13,13 @@ docker pull ipfs/go-ipfs
 Then to initialize it, execute the following
 
 ```bash
-docker run --name ipfs_daemon -p 5001:5001 -d ipfs/go-ipfs --offline
+docker run --name ipfsd -p 5001:5001 -d ipfs/go-ipfs
 ```
 
 or,
 
 ```bash
-var/bin/ipfs_daemon
+var/bin/ipfsd
 ```
 
 These commands also start the container.
@@ -30,13 +30,13 @@ These commands also start the container.
 To start it:
 
 ```bash
-docker start ipfs_daemon
+docker start ipfsd
 ```
 
 To stop it:
 
 ```bash
-docker stop ipfs_daemon
+docker stop ipfsd
 ```
 
 ## Ruby
