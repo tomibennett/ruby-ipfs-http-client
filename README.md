@@ -74,63 +74,68 @@ Ipfs::File.new('README.md').add.tap { |file|
 # his size is 2275
 ```
 
-## Clients related information (debugging purposes)
+## Ipfs::Client
+The client is not intended to be manipulated at all outside the library. It is a singleton class that is used to route commands and requests inside the library.
 
-Several information about Ipfs and the HTTP API are available through the client object.
+However, it contains certain, read-only, informations that can be useful for debugging purposes.
 
-#### The peer id
+### Ipfs::Client::id
+Displays the peer-id.
+
 ```ruby
-Ipfs::Client.id
+Ipfs::Client::id
+# => "QmVnLbr9Jktjwx8AkixVky5Bws8cGsX5hVEJbye2mvC2YY"
 ```
 
-#### The library version
+### Ipfs::Client::version
+Displays the version of this library.
+
 ```ruby
-Ipfs::Client.version
+Ipfs::Client::version
+# => "0.5.0"
 ```
 
-### Adresses and gateways
+### Ipfs::Client::addresses
+Displays addresses and gateways of Ipfs node.
 
 ```ruby
-Ipfs::Client.addresses
-```
-
-### The peer public key
-```ruby
-Ipfs::Client.public_key
-```
-
-### Daemon version, build, commit, etc.
-
-```ruby
-Ipfs::Client.daemon
-```
-
-### The HTTP API's version on which this library is built
-
-```ruby
-Ipfs::Client.api_version
-```
-
-## DEPRECATED
-
-## [cat command](#cat-command)
-
-```ruby
-client.cat('QmPdrgF7dETUkgQxSEmGVHPj3ff9MjjDJXbXL8wu8BDszp').to_s # => "ruby-ipfs-api\n"
-```
-
-## [ls command](#ls-command)
-
-```ruby
-client.ls('Qmcc7fRg5h1oVuetPgdfZuQ6tzxGappaDKSDHKDu1DnLGs')
-
-
+Ipfs::Client::addresses
 # => [
-#  {
-#    "Name"=>"ruby-ipfs-api",
-#    "Hash"=>"QmPdrgF7dETUkgQxSEmGVHPj3ff9MjjDJXbXL8wu8BDszp",
-#    "Size"=>22,
-#    "Type"=>2
-#  }
-#]
+#      "/ip4/127.0.0.1/tcp/4001/ipfs/QmVwxnW4Z8JVMDfo1jeFMNqQor5naiStUPooCdf2Yu23Gi",
+#      "/ip4/192.168.1.16/tcp/4001/ipfs/QmVwxnW4Z8JVMDfo1jeFMNqQor5naiStUPooCdf2Yu23Gi",
+#      "/ip6/::1/tcp/4001/ipfs/QmVwxnW4Z8JVMDfo1jeFMNqQor5naiStUPooCdf2Yu23Gi",
+#      "/ip6/2a01:e34:ef8d:2940:8f7:c616:...5naiStUPooCdf2Yu23Gi",
+#      "/ip6/2a01:e34:ef8d:2940:...5naiStUPooCdf2Yu23Gi",
+#      "/ip4/78.248.210.148/tcp/13684/ipfs/Qm...o1jeFMNqQor5naiStUPooCdf2Yu23Gi"
+#    ]
+```
+
+### Ipfs::Client::public_key
+Displays the peer's public key given by the initialize
+
+```ruby
+Ipfs::Client::public_key
+# => "CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwgg...AgMBAAE="
+```
+
+### Ipfs::Client::daemon
+Displays information about the running daemon.
+
+```ruby
+Ipfs::Client::daemon
+# => {
+#      :version=>"0.4.13",
+#      :commit=>"cc01b7f",
+#      :repo=>"6",
+#      :system=>"amd64/darwin",
+#      :golang=>"go1.9.2"
+#    }
+```
+
+### Ipfs::Client::api_version
+Displays the HTTP API version on which this library relies on.
+
+```ruby
+Ipfs::Client::api_version
+# => "v0"
 ```
