@@ -20,7 +20,7 @@ Make sure the Ipfs daemon is running, otherwise
 the client will not be able to connect.
 
 You'll get an error `Ipfs::UnreachableDaemon` and the program
-execution will stop if no daemon are present.
+execution will stop if daemon is not present.
 
 The client will make a persistent connection to the API.
 
@@ -33,104 +33,170 @@ require 'ipfs_api'
 > TODO: use a configuration file and/or environment variables to specify the http api url. 
 Those are hard-coded at the moment :(
 
-## File objects
+## Ipfs::File
 
-You can manipulates files through Ipfs with the `Ipfs::File` class.
+This class is intended to manipulate files through Ipfs.
 
-### Instantiation
+### Ipfs::File::new
 
-To create a file, just pass a path
+You can create a `Ipfs::File` object in multiple ways.
+
+#### From a path
 
 ```ruby
-file = Ipfs::File.new('path/to/file')
+Ipfs::File.new(path: 'path/to/file')
+#=> #<Ipfs::File:0x00007fabdd199de0 @path="path/to/file", @added=false>
 ```
 
-This will instantiate a new `Ipfs::File` object.
-
-### Adding a file to Ipfs
-
-You can add it to Ipfs with the `add` method:
+#### From a multihash
 
 ```ruby
-file.add
+Ipfs::File.new(multihash: 'QmVfpW2rKzzahcxt5LfYyNnnKvo1L7XyRF8Ykmhttcyztv')
+#=> #<Ipfs::File:0x00007fabdab57628 @added=false, @multihash=#<Ipfs::Multihash:0x00007fabdab57510 ....>>
 ```
 
-### Retrieve information about the file
+### Ipfs::File#add
 
-The `add` method will return the object and complete some metadata
-that are returned by Ipfs.
+This method allows to add a file to Ipfs.
 
-Those are `size`, `multihash` and `name`:
+The main object is returned allowing for chainable actions.
+
+Once the file is added, its multihash is generated and accessible from the object.
 
 ```ruby
-Ipfs::File.new('README.md').add.tap { |file|
-  puts "his hash, returned by Ipfs, is '#{file.multihash}'"
-  puts "the file name is #{file.name}"
-  puts "his size is #{file.size}"
-}
+Ipfs::File.new(path: 'path/to/file')
+#=> #<Ipfs::File:0x00007fabdd199de0 @path="path/to/file", @added=false>
 
-# his hash, returned by Ipfs, is 'QmcK5Six9THFatwK5hxugiSM6bhfEdtvirbpEQXhdcuuqg'
-# the file name is README.md
-# his size is 2275
+Ipfs::File.new(path: 'path/to/file').add
+#=> #<Ipfs::File:0x00007fabdd199de0 @path="path/to/file", @added=true, @multihash=...>
 ```
 
-## Clients related information (debugging purposes)
+### Ipfs::File#multihash
 
-Several information about Ipfs and the HTTP API are available through the client object.
+Allows to retrieve an Ipfs generated multihash's file.
 
-#### The peer id
+**If the `Ipfs::File` is created using a path, it needs to be added to Ipfs first.**
+
 ```ruby
-Ipfs::Client.id
+Ipfs::File.new(path: 'path/to/file').multihash
+#=> nil
 ```
 
-#### The library version
 ```ruby
-Ipfs::Client.version
+Ipfs::File.new(path: 'path/to/file').add.multihash
+#=> #<Ipfs::Multihash:0x00007fabdda2d420 ...>
+
+Ipfs::File.new(path: 'path/to/file').add.multihash.raw
+#=> "Qmcw6nstA5oANHbX3fxZaWUkhyQBQwUC3f5HPFpxR1SsLd"
+
+Ipfs::File.new(multihash: 'QmScu...J3T').multihash.raw
+# => "QmScu...J3T"
 ```
 
-### Adresses and gateways
+### Ipfs::File#cat
+
+Allows to retrieve the content of a file from its multihash using Ipfs.
+
+**The multihash must be known to the object, otherwise a null value will be returned.**
 
 ```ruby
-Ipfs::Client.addresses
+Ipfs::File.new(path: 'path/to/file').cat
+#=> nil
 ```
 
-### The peer public key
 ```ruby
-Ipfs::Client.public_key
+Ipfs::File.new(multihash: 'QmScu...J3T').cat
+#=> "File content..."
+
+Ipfs::File.new(path: 'path/to/file').add.cat
+#=> "File content..."
 ```
 
-### Daemon version, build, commit, etc.
+### Ipfs::File#name
+
+Allows to retrieve a file name.
+
+**The file must be added to Ipfs first**
 
 ```ruby
-Ipfs::Client.daemon
+Ipfs::File.new(path: 'path/to/file').add.name
+# => "file"
 ```
 
-### The HTTP API's version on which this library is built
+### Ipfs::File#size
+
+Allows to retrieve a file size in bytes.
+
+**The file must be added to Ipfs first**
 
 ```ruby
-Ipfs::Client.api_version
+Ipfs::File.new(path: 'path/to/file').add.size
+# => 12345
 ```
 
-## DEPRECATED
 
-## [cat command](#cat-command)
+## Ipfs::Client
+The client is not intended to be manipulated at all outside the library. It is a singleton class that is used to route commands and requests inside the library.
+
+However, it contains certain, read-only, informations that can be useful for debugging purposes.
+
+### Ipfs::Client::id
+Displays the peer-id.
 
 ```ruby
-client.cat('QmPdrgF7dETUkgQxSEmGVHPj3ff9MjjDJXbXL8wu8BDszp').to_s # => "ruby-ipfs-api\n"
+Ipfs::Client::id
+# => "QmVnLbr9Jktjwx8AkixVky5Bws8cGsX5hVEJbye2mvC2YY"
 ```
 
-## [ls command](#ls-command)
+### Ipfs::Client::version
+Displays the version of this library.
 
 ```ruby
-client.ls('Qmcc7fRg5h1oVuetPgdfZuQ6tzxGappaDKSDHKDu1DnLGs')
+Ipfs::Client::version
+# => "0.5.0"
+```
 
+### Ipfs::Client::addresses
+Displays addresses and gateways of Ipfs node.
 
+```ruby
+Ipfs::Client::addresses
 # => [
-#  {
-#    "Name"=>"ruby-ipfs-api",
-#    "Hash"=>"QmPdrgF7dETUkgQxSEmGVHPj3ff9MjjDJXbXL8wu8BDszp",
-#    "Size"=>22,
-#    "Type"=>2
-#  }
-#]
+#      "/ip4/127.0.0.1/tcp/4001/ipfs/QmVwxnW4Z8JVMDfo1jeFMNqQor5naiStUPooCdf2Yu23Gi",
+#      "/ip4/192.168.1.16/tcp/4001/ipfs/QmVwxnW4Z8JVMDfo1jeFMNqQor5naiStUPooCdf2Yu23Gi",
+#      "/ip6/::1/tcp/4001/ipfs/QmVwxnW4Z8JVMDfo1jeFMNqQor5naiStUPooCdf2Yu23Gi",
+#      "/ip6/2a01:e34:ef8d:2940:8f7:c616:...5naiStUPooCdf2Yu23Gi",
+#      "/ip6/2a01:e34:ef8d:2940:...5naiStUPooCdf2Yu23Gi",
+#      "/ip4/78.248.210.148/tcp/13684/ipfs/Qm...o1jeFMNqQor5naiStUPooCdf2Yu23Gi"
+#    ]
+```
+
+### Ipfs::Client::public_key
+Displays the peer's public key.
+
+```ruby
+Ipfs::Client::public_key
+# => "CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwgg...AgMBAAE="
+```
+
+### Ipfs::Client::daemon
+Displays information about the running daemon.
+
+```ruby
+Ipfs::Client::daemon
+# => {
+#      :version=>"0.4.13",
+#      :commit=>"cc01b7f",
+#      :repo=>"6",
+#      :system=>"amd64/darwin",
+#      :golang=>"go1.9.2"
+#    }
+```
+
+### Ipfs::Client::api_version
+Displays the HTTP API version on which this library relies on.
+
+```ruby
+Ipfs::Client::api_version
+# => "v0"
 ```
