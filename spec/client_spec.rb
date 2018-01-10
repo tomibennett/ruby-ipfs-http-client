@@ -3,6 +3,34 @@ require_relative '../lib/ipfs_api'
 RSpec.describe Ipfs::Client do
   let(:id_command_url) { 'http://localhost:5001/api/v0/id' }
 
+  describe 'connection to API using configuration file' do
+    it 'knows the Ipfs configuration file path' do
+      expect(described_class::IPFS_CONFIG_FILEPATH).to eq "#{ENV['HOME']}/.ipfs/config"
+    end
+
+    it 'retrieves API location from the configuration file' do
+      expect(described_class.send(:parse_config_file)).to match host: '127.0.0.1', port: 5001
+    end
+  end
+
+  describe 'attempting connection to API using different methods' do
+    it 'knows two methods to connect to the api' do
+      expect(described_class::CONNECTION_METHODS.length).to eq 3
+    end
+
+    describe '#attempt_connection' do
+      context 'an attempt succeeded' do
+        it 'is connected to Ipfs' do
+          expect(described_class.attempt_connection).to_not be_nil
+        end
+      end
+
+      context 'all attempt have failed' do
+        # program terminates
+      end
+    end
+  end
+
   describe '#call' do
     let(:id_command) { double('Ipfs::Request', verb: :get, path: '/id', options: {}) }
 
@@ -14,21 +42,15 @@ RSpec.describe Ipfs::Client do
 
       it 'fails to perform call the Ipfs API' do
         expect {
-          described_class.call id_command
+          described_class.send(:call, id_command)
         }.to raise_error Ipfs::Error::UnreachableDaemon
       end
     end
 
     context 'when IPFS is reachable' do
       it 'can call the Ipfs API' do
-        expect { described_class.call id_command }.not_to raise_error
+        expect { described_class.send(:call, id_command) }.not_to raise_error
       end
-    end
-  end
-
-  describe '#connection' do
-    it 'is connected to Ipfs' do
-      expect(described_class.connection).to be_a HTTP::Client
     end
   end
 

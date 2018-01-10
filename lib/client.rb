@@ -7,42 +7,45 @@ require_relative './api/generic/id'
 
 module Ipfs
   class Client
-    DEFAULT_HOST = 'localhost'
-    DEFAULT_PORT = 5001
+    IPFS_CONFIG_FILEPATH = "#{ENV['HOME']}/.ipfs/config"
+    DEFAULT_SERVER = { host: 'localhost', port: 5001 }
+    CONNECTION_METHODS = [
+      ->() { DEFAULT_SERVER },
+      ->() { parse_config_file },
+      ->() { raise Ipfs::Error::UnreachableDaemon, "IPFS is not reachable." }
+    ]
+
     DEFAULT_BASE_PATH = '/api/v0'
 
     class << self
       def initialize
-        @@host = DEFAULT_HOST
-        @@port = DEFAULT_PORT
-        @@base_path = DEFAULT_BASE_PATH
-
-        @@connection = HTTP.persistent URI::HTTP.build(host: @@host, port: @@port)
-
-        ObjectSpace.define_finalizer(self, proc { connection.close })
+        attempt_connection
 
         retrieve_ids
         retrieve_daemon_version
+
+        ObjectSpace.define_finalizer(self, proc { connection.close })
       end
 
-      def call(command)
+      def connection_up?(connection)
         begin
-          @@connection.request(
-            command.verb,
-            full_path(command.path),
-            command.options
+          HTTP.get(
+            "http://#{connection[:host]}:#{connection[:port]}#{DEFAULT_BASE_PATH}/id"
           )
+          true
         rescue HTTP::ConnectionError
-          raise Ipfs::Error::UnreachableDaemon, "IPFS is not reachable."
+          false
         end
+      end
+
+      def attempt_connection
+        CONNECTION_METHODS
+          .find { |connection| connection_up? connection.call }
+          .tap { |connection| @@connection = HTTP.persistent URI::HTTP.build(connection.call) }
       end
 
       def execute(command, *args)
         command.parse_response call command.build_request *args
-      end
-
-      def connection
-        @@connection
       end
 
       def id
@@ -70,13 +73,34 @@ module Ipfs
       end
 
       def api_version
-        @@base_path.split('/')[-1]
+        DEFAULT_BASE_PATH.split('/')[-1]
       end
 
       private
 
       def full_path(command_path)
-        "#{@@base_path}#{command_path}"
+        "#{DEFAULT_BASE_PATH}#{command_path}"
+      end
+
+      def call(command)
+        begin
+          @@connection.request(
+            command.verb,
+            full_path(command.path),
+            command.options
+          )
+        rescue HTTP::ConnectionError
+          raise Ipfs::Error::UnreachableDaemon, "IPFS is not reachable."
+        end
+      end
+
+      def parse_config_file
+        %r{.*API.*/ip4/(.*)/tcp/(\d+)}.match(::File.read IPFS_CONFIG_FILEPATH) do |match_data|
+          {
+            host: match_data[1],
+            port: match_data[2].to_i
+          }
+        end
       end
 
       def retrieve_ids
