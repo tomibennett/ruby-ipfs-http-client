@@ -1,6 +1,6 @@
-require_relative '../../lib/connection/connection'
+require_relative '../../lib/connection/base'
 
-RSpec.describe Ipfs::Connection do
+RSpec.describe Ipfs::Connection::Base do
   let(:connection) { described_class.new }
 
   it 'has a default base path' do

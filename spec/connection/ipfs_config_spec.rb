@@ -1,6 +1,6 @@
 require_relative '../../lib/connection/ipfs_config'
 
-RSpec.describe Ipfs::IpfsConfig do
+RSpec.describe Ipfs::Connection::IpfsConfig do
   let(:location) { { host: '127.0.0.1', port: 5001 } }
   let(:connection) { described_class.new }
 
@@ -11,7 +11,7 @@ RSpec.describe Ipfs::IpfsConfig do
   end
 
   it 'is a Connection' do
-    expect(connection).to be_a Ipfs::Connection
+    expect(connection).to be_a Ipfs::Connection::Base
   end
 
   it 'knows the Ipfs configuration file path' do

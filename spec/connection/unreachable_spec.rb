@@ -1,10 +1,10 @@
 require_relative '../../lib/connection/unreachable'
 
-RSpec.describe Ipfs::Unreachable do
+RSpec.describe Ipfs::Connection::Unreachable do
   let(:connection) { described_class.new }
 
-  it 'is a connection' do
-    expect(connection).to be_a Ipfs::Connection
+  it 'is a Connection' do
+    expect(connection).to be_a Ipfs::Connection::Base
   end
 
   it 'has no host' do

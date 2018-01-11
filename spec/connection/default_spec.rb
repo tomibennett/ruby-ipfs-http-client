@@ -1,11 +1,11 @@
-require_relative '../../lib/connection/default_connection'
+require_relative '../../lib/connection/default'
 
-RSpec.describe Ipfs::DefaultConnection do
+RSpec.describe Ipfs::Connection::Default do
   let(:location) { { host: 'localhost', port: 5001 } }
   let(:connection) { described_class.new }
 
   it 'is a Connection' do
-    expect(connection).to be_a Ipfs::Connection
+    expect(connection).to be_a Ipfs::Connection::Base
   end
 
   it 'has set a host' do
