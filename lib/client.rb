@@ -113,5 +113,7 @@ module Ipfs
     end
 
     initialize
+
+    private_class_method :new
   end
 end
