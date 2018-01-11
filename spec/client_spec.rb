@@ -3,16 +3,6 @@ require_relative '../lib/ipfs_api'
 RSpec.describe Ipfs::Client do
   let(:id_command_url) { 'http://localhost:5001/api/v0/id' }
 
-  describe 'connection to API using configuration file' do
-    it 'knows the Ipfs configuration file path' do
-      expect(described_class::IPFS_CONFIG_FILEPATH).to eq "#{ENV['HOME']}/.ipfs/config"
-    end
-
-    it 'retrieves API location from the configuration file' do
-      expect(described_class.send(:parse_config_file)).to match host: '127.0.0.1', port: 5001
-    end
-  end
-
   describe 'attempting connection to API using different methods' do
     it 'knows two methods to connect to the api' do
       expect(described_class::CONNECTION_METHODS.length).to eq 3

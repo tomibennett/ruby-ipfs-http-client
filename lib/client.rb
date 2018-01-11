@@ -5,17 +5,18 @@ require_relative './errors'
 require_relative './api/command'
 require_relative './api/generic/id'
 
+require_relative './connection/default'
+require_relative './connection/ipfs_config'
+require_relative './connection/unreachable'
+
 module Ipfs
   class Client
-    IPFS_CONFIG_FILEPATH = "#{ENV['HOME']}/.ipfs/config"
-    DEFAULT_SERVER = { host: 'localhost', port: 5001 }
-    CONNECTION_METHODS = [
-      ->() { DEFAULT_SERVER },
-      ->() { parse_config_file },
-      ->() { raise Ipfs::Error::UnreachableDaemon, "IPFS is not reachable." }
-    ]
-
     DEFAULT_BASE_PATH = '/api/v0'
+    CONNECTION_METHODS = [
+      Connection::Default,
+      Connection::IpfsConfig,
+      Connection::Unreachable
+    ]
 
     class << self
       def initialize
@@ -27,21 +28,16 @@ module Ipfs
         ObjectSpace.define_finalizer(self, proc { connection.close })
       end
 
-      def connection_up?(connection)
-        begin
-          HTTP.get(
-            "http://#{connection[:host]}:#{connection[:port]}#{DEFAULT_BASE_PATH}/id"
-          )
-          true
-        rescue HTTP::ConnectionError
-          false
-        end
-      end
-
       def attempt_connection
-        CONNECTION_METHODS
-          .find { |connection| connection_up? connection.call }
-          .tap { |connection| @@connection = HTTP.persistent URI::HTTP.build(connection.call) }
+        find_up = ->(connections) {
+          connections.each { |connection|
+            co = connection.new
+
+            return co if co.up?
+          }
+        }
+
+        @@connection = find_up.call(CONNECTION_METHODS).make_persistent
       end
 
       def execute(command, *args)
@@ -91,15 +87,6 @@ module Ipfs
           )
         rescue HTTP::ConnectionError
           raise Ipfs::Error::UnreachableDaemon, "IPFS is not reachable."
-        end
-      end
-
-      def parse_config_file
-        %r{.*API.*/ip4/(.*)/tcp/(\d+)}.match(::File.read IPFS_CONFIG_FILEPATH) do |match_data|
-          {
-            host: match_data[1],
-            port: match_data[2].to_i
-          }
         end
       end
 
