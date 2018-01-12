@@ -11,7 +11,7 @@ RSpec.describe Ipfs::Client do
     describe '#attempt_connection' do
       context 'an attempt succeeded' do
         it 'is connected to Ipfs' do
-          expect(described_class.attempt_connection).to_not be_nil
+          expect(described_class.send(:attempt_connection)).to_not be_nil
         end
       end
 
@@ -45,48 +45,26 @@ RSpec.describe Ipfs::Client do
   end
 
   describe '#id' do
+    let(:id) { described_class.id }
+
     it 'returns the id' do
-      expect(described_class.id).to be_a String
-    end
-  end
-
-  describe '#addresses' do
-    it 'returns the addresses' do
-      expect(described_class.addresses).to match(a_collection_including(String))
-        end
-  end
-
-  describe '#public_key' do
-    it 'returns the public key' do
-      expect(described_class.public_key).to be_a String
-    end
-  end
-
-  describe '#agent_version' do
-    it 'returns the agent version' do
-      expect(described_class.agent_version).to be_a String
-    end
-  end
-
-  describe '#version' do
-    it 'returns the current library version' do
-      expect(described_class.version).to eq Ipfs::VERSION
+      expect(id[:peer_id]).to be_a String
+      expect(id[:addresses]).to match a_collection_including(String)
+      expect(id[:public_key]).to be_a String
+      expect(id[:agent_version]).to be_a String
     end
   end
 
   describe '#daemon' do
-    it 'returns the daemon informations' do
-      expect(described_class.daemon[:version]).to be_a String
-      expect(described_class.daemon[:commit]).to be_a String
-      expect(described_class.daemon[:repo]).to be_a String
-      expect(described_class.daemon[:system]).to be_a String
-      expect(described_class.daemon[:golang]).to be_a String
-    end
-  end
+    let(:daemon) { described_class.daemon }
 
-  describe '#api_version' do
-    it 'returns the version of the Ipfs HTTP api' do
-      expect(described_class.api_version).to match(/v\d/)
+    it 'returns the daemon informations' do
+      expect(daemon[:version]).to be_a String
+      expect(daemon[:commit]).to be_a String
+      expect(daemon[:repo]).to be_a String
+      expect(daemon[:system]).to be_a String
+      expect(daemon[:golang]).to be_a String
+      expect(daemon[:api]).to be_a String
     end
   end
 end

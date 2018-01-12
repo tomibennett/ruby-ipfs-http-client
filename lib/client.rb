@@ -25,7 +25,34 @@ module Ipfs
         retrieve_ids
         retrieve_daemon_version
 
-        ObjectSpace.define_finalizer(self, proc { connection.close })
+        ObjectSpace.define_finalizer(self, proc { @@connection.close })
+      end
+
+
+      def execute(command, *args)
+        command.parse_response call command.build_request *args
+      end
+
+      def id
+        @@id
+      end
+
+      def daemon
+        @@daemon
+      end
+
+      private
+
+      def call(command)
+        begin
+          @@connection.request(
+            command.verb,
+            "#{DEFAULT_BASE_PATH}#{command.path}",
+            command.options
+          )
+        rescue HTTP::ConnectionError
+          raise Ipfs::Error::UnreachableDaemon, "IPFS is not reachable."
+        end
       end
 
       def attempt_connection
@@ -40,62 +67,14 @@ module Ipfs
         @@connection = find_up.call(CONNECTION_METHODS).make_persistent
       end
 
-      def execute(command, *args)
-        command.parse_response call command.build_request *args
-      end
-
-      def id
-        @@id
-      end
-
-      def addresses
-        @@addresses
-      end
-
-      def public_key
-        @@public_key
-      end
-
-      def agent_version
-        @@agent_version
-      end
-
-      def version
-        Ipfs::VERSION
-      end
-
-      def daemon
-        @@daemon
-      end
-
-      def api_version
-        DEFAULT_BASE_PATH.split('/')[-1]
-      end
-
-      private
-
-      def full_path(command_path)
-        "#{DEFAULT_BASE_PATH}#{command_path}"
-      end
-
-      def call(command)
-        begin
-          @@connection.request(
-            command.verb,
-            full_path(command.path),
-            command.options
-          )
-        rescue HTTP::ConnectionError
-          raise Ipfs::Error::UnreachableDaemon, "IPFS is not reachable."
-        end
-      end
-
       def retrieve_ids
         (execute Command::Id).tap do |ids|
-          @@id = ids['ID']
-          @@addresses = ids['Addresses']
-          @@public_key = ids['PublicKey']
-          @@agent_version = ids['AgentVersion']
+          @@id = {
+            peer_id: ids['ID'],
+            addresses: ids['Addresses'],
+            public_key: ids['PublicKey'],
+            agent_version: ids['AgentVersion'],
+          }
         end
       end
 
@@ -106,7 +85,8 @@ module Ipfs
             commit: version['Commit'],
             repo: version['Repo'],
             system: version['System'],
-            golang: version['Golang']
+            golang: version['Golang'],
+            api: DEFAULT_BASE_PATH.split('/')[-1]
           }
         end
       end
