@@ -78,6 +78,15 @@ module Ipfs
       }
     end
 
+    # Use the {#multihash} to get the content of a file from Ipfs and returns it.
+    #
+    # @note the file must be added first or have a multihash. See {#add} and {#multihash}.
+    #
+    # @example
+    #   Ipfs::File.new(path: 'path/to/file').add.cat
+    #   #=> 'file content'
+    #
+    # @return [String] The content is returned.
     def cat
       begin
         Ipfs::Client.execute(Command::Cat, @multihash).to_s if @multihash
