@@ -74,6 +74,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
+    yard (0.9.12)
 
 PLATFORMS
   ruby
@@ -85,9 +86,10 @@ DEPENDENCIES
   rspec (~> 3.6.0)
   rubocop (~> 0.50.0)
   webmock (~> 3.0.1)
+  yard (~> 0.9.12)
 
 RUBY VERSION
    ruby 2.4.2p198
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
