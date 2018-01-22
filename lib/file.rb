@@ -3,6 +3,10 @@ require_relative './api/files/add'
 require_relative './api/files/cat'
 
 module Ipfs
+  # @attr_reader [String] path The file's path.
+  # @attr_reader [Ipfs::Multihash] multihash The file's multihash as returned by Ipfs.
+  # @attr_reader [Integer] size The file's size in bytes as returned by Ipfs.
+  # @attr_reader [String] name The file's name as returned by Ipfs.
   class File
     attr_reader :path, :multihash, :size, :name
 
