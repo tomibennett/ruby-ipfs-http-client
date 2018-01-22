@@ -10,6 +10,23 @@ module Ipfs
   class File
     attr_reader :path, :multihash, :size, :name
 
+    # Create an Ipfs file object, either from a Multihash or from a filepath
+    # allowing a file to be added to and be retrieved from Ipfs.
+    #
+    # @example given a filepath
+    #   Ipfs::File.new(path: 'path/to/file')
+    #   #=> #<Ipfs::File @path="path/to/file", @added=false>
+    # @example given a multihash
+    #   Ipfs::File.new(multihash: 'QmVfpW2rKzzahcxt5LfYyNnnKvo1L7XyRF8Ykmhttcyztv')
+    #   #=> #<Ipfs::File @added=false, @multihash=#<Ipfs::Multihash ....>>
+    #
+    # @param attributes [Hash{Symbol => String}]
+    #
+    # @return [Ipfs::File]
+    #
+    # @raise [Error::InvalidMultihash, Errno::ENOENT] Whether the path leads to
+    #   a non-file entity or the multihash may be invalid,
+    #   an error is thrown.
     def initialize(**attributes)
       attributes.each { |name, value|
         instance_variable_set("@#{name}".to_sym, send("init_#{name}", value))
