@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.email       = 'tom@benett.io'
   s.files       = Dir['lib/**/*.rb']
   s.homepage    =
-    'https://github.com/mahloun/ruby-ipfs-api'
+    'https://github.com/tbenett/ruby-ipfs-api'
   s.license     = 'MIT'
 
   s.required_ruby_version = '>= 2.4'
