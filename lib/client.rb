@@ -37,6 +37,7 @@ module Ipfs
       end
 
 
+      # @api private
       def execute(command, *args)
         command.parse_response call command.build_request *args
       end
