@@ -4,6 +4,7 @@ ruby '2.4.2'
 
 gem 'http', '~> 2.2.2'
 gem 'rake', '~> 12.0.0'
+gem 'yard', '~> 0.9.12'
 
 group :test do
   gem 'coveralls', require: false
