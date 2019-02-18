@@ -10,14 +10,22 @@ require_relative './connection/ipfs_config'
 require_relative './connection/unreachable'
 
 module Ipfs
+  # The client is not intended to be manipulated. It is a singleton class used
+  # to route commands and their corresponding requests.
+  #
+  # However, it contains certain, read-only, information that can be useful for
+  # debugging purposes.
   class Client
+    # @api private
     DEFAULT_BASE_PATH = '/api/v0'
+    # @api private
     CONNECTION_METHODS = [
       Connection::Default,
       Connection::IpfsConfig,
       Connection::Unreachable
     ]
 
+    # @api private
     class << self
       def initialize
         attempt_connection
