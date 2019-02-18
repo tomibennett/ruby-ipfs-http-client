@@ -64,6 +64,20 @@ module Ipfs
         @@id
       end
 
+      # Various debugging information concerning the running Ipfs daemon
+      # and this library
+      #
+      # @example
+      #   Ipfs::Client.daemon
+      #   #=> {
+      #     :version: "0.4.13",
+      #     commit: "cc01b7f",
+      #     repo: "6",
+      #     system: "amd64/darwin",
+      #     golang: "go1.9.2"
+      #   }
+      #
+      # @return [Hash{Symbol => String}]
       def daemon
         @@daemon
       end
