@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.4.2'
+ruby '2.6.1'
 
 gem 'http', '~> 2.2.2'
 gem 'rake', '~> 12.0.0'
