@@ -12,4 +12,4 @@ group :test do
   gem 'webmock', '~>3.5.1'
 end
 
-gem 'rubocop', '~> 0.50.0', require: false
+gem 'rubocop', '~> 0.65.0', require: false
