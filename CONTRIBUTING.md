@@ -142,7 +142,7 @@ the side-effects and the dependencies of external libraries, such as
 
 His implementation, as a singleton class, allows us to use it the
 same way we would use a Database Connector.
- 
+
 For example, it is absolutely mandatory that at the runtime, an Ipfs
 daemon is present, otherwise the execution stops.
 
@@ -151,7 +151,7 @@ daemon is present, otherwise the execution stops.
 To use the **CLIENT** in the project, simply pass a **COMMAND** and
 its arguments to the `execute` method.
 
-Example from `ruby-ipfs-api/lib/file.rb:19`
+Example from `ruby-http-client/lib/ruby-http-client/file.rb:19`
 
 ```ruby
 Ipfs::Client.execute(Command::Add, @path).tap { |response|

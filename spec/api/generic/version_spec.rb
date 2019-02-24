@@ -1,5 +1,5 @@
-require_relative '../../../lib/ruby-ipfs-api/api/command'
-require_relative '../../../lib/ruby-ipfs-api/api/generic/version'
+require_relative '../../../lib/ruby-ipfs-http-client/api/command'
+require_relative '../../../lib/ruby-ipfs-http-client/api/generic/version'
 
 describe Ipfs::Command::Version do
   let(:daemon_version) { File.read File.join('spec', 'fixtures', 'version.json')  }

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby-ipfs-api (0.5.1)
+    ruby-ipfs-http-client (0.5.1)
 
 GEM
   remote: https://rubygems.org/
@@ -93,7 +93,7 @@ DEPENDENCIES
   rake (~> 12.0.0)
   rspec (~> 3.8.0)
   rubocop (~> 0.65.0)
-  ruby-ipfs-api!
+  ruby-ipfs-http-client!
   webmock (~> 3.5.1)
   yard (~> 0.9.12)
 

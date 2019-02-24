@@ -1,4 +1,4 @@
-require_relative '../lib/ruby-ipfs-api/base'
+require_relative '../lib/ruby-ipfs-http-client/base'
 
 RSpec.describe Ipfs::Base58 do
   it 'has the bitcoin alphabet' do

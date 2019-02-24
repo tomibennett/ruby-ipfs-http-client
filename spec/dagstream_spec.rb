@@ -1,4 +1,4 @@
-require_relative '../lib/ruby-ipfs-api/dagstream'
+require_relative '../lib/ruby-ipfs-http-client/dagstream'
 
 RSpec.describe Ipfs::DagStream do
   describe '.initialize' do
