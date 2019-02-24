@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby-ipfs-api/connection/ipfs_config'
+require_relative '../../lib/ruby-ipfs-http-client/connection/ipfs_config'
 
 RSpec.describe Ipfs::Connection::IpfsConfig do
   let(:location) { { host: '127.0.0.1', port: 5001 } }

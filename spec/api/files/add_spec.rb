@@ -1,5 +1,5 @@
-require_relative '../../../lib/ruby-ipfs-api/api/command'
-require_relative '../../../lib/ruby-ipfs-api/api/files/add'
+require_relative '../../../lib/ruby-ipfs-http-client/api/command'
+require_relative '../../../lib/ruby-ipfs-http-client/api/files/add'
 
 describe Ipfs::Command::Add do
   it 'has the default path' do

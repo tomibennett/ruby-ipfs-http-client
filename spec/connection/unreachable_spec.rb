@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby-ipfs-api/connection/unreachable'
+require_relative '../../lib/ruby-ipfs-http-client/connection/unreachable'
 
 RSpec.describe Ipfs::Connection::Unreachable do
   let(:connection) { described_class.new }

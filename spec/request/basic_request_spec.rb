@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby-ipfs-api/request/basic_request'
+require_relative '../../lib/ruby-ipfs-http-client/request/basic_request'
 
 RSpec.describe Ipfs::BasicRequest do
   let(:id_path) { '/id' }

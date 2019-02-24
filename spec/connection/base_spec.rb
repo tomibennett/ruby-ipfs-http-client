@@ -1,4 +1,4 @@
-require_relative '../../lib/ruby-ipfs-api/connection/base'
+require_relative '../../lib/ruby-ipfs-http-client/connection/base'
 
 RSpec.describe Ipfs::Connection::Base do
   let(:connection) { described_class.new }

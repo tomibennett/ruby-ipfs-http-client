@@ -1,4 +1,4 @@
-require_relative '../lib/ipfs_api'
+require_relative '../lib/ipfs'
 
 RSpec.describe Ipfs::Client do
   let(:id_command_url) { 'http://localhost:5001/api/v0/id' }
