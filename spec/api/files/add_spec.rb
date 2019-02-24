@@ -1,5 +1,5 @@
-require_relative '../../../lib/api/command'
-require_relative '../../../lib/api/files/add'
+require_relative '../../../lib/ruby-ipfs-api/api/command'
+require_relative '../../../lib/ruby-ipfs-api/api/files/add'
 
 describe Ipfs::Command::Add do
   it 'has the default path' do
@@ -7,7 +7,7 @@ describe Ipfs::Command::Add do
   end
 
   describe '.build_request' do
-    let(:filepath) { 'path/to/file' }
+    let(:filepath) { File.join('spec', 'fixtures', 'api', 'files', 'sample') }
     let(:request) { described_class.build_request filepath }
 
     it 'returns a request' do
@@ -23,7 +23,6 @@ describe Ipfs::Command::Add do
     end
 
     it 'has a request options containing the FormData object' do
-
       expect(request.options).to match form: {
         arg: an_instance_of(HTTP::FormData::File)
       }

@@ -1,6 +1,6 @@
 require 'date'
 
-require_relative './lib/ipfs_api'
+require_relative './lib/ruby-ipfs-api/version'
 
 Gem::Specification.new do |s|
   s.name        = 'ruby-ipfs-api'
@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.4'
 
-  s.add_runtime_dependency 'http', '~> 2.2'
+  s.add_development_dependency 'rspec', '~> 3.8.0'
+  s.add_development_dependency 'webmock', '~>3.5.1'
 end
 

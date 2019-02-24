@@ -1,5 +1,5 @@
-require_relative '../../../lib/api/command'
-require_relative '../../../lib/api/generic/id'
+require_relative '../../../lib/ruby-ipfs-api/api/command'
+require_relative '../../../lib/ruby-ipfs-api/api/generic/id'
 
 describe Ipfs::Command::Id do
   let(:client_id) { File.read File.join('spec', 'fixtures', 'id.json')  }

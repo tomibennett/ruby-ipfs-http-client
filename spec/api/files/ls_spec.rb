@@ -1,5 +1,5 @@
-require_relative '../../../lib/api/command'
-require_relative '../../../lib/api/files/ls'
+require_relative '../../../lib/ruby-ipfs-api/api/command'
+require_relative '../../../lib/ruby-ipfs-api/api/files/ls'
 
 describe Ipfs::Command::Ls do
   it 'has the default path' do
