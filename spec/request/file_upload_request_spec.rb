@@ -1,4 +1,4 @@
-require_relative '../../lib/request/file_upload_request'
+require_relative '../../lib/ruby-ipfs-api/request/file_upload_request'
 
 RSpec.describe Ipfs::FileUploadRequest do
   let(:add_path) { '/add' }

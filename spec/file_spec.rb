@@ -1,4 +1,4 @@
-require_relative '../lib/file'
+require_relative '../lib/ruby-ipfs-api/file'
 
 RSpec.describe Ipfs::File do
   let(:path) { ::File.join('spec', 'fixtures', 'dune.txt') }

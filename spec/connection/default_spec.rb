@@ -1,4 +1,4 @@
-require_relative '../../lib/connection/default'
+require_relative '../../lib/ruby-ipfs-api/connection/default'
 
 RSpec.describe Ipfs::Connection::Default do
   let(:location) { { host: 'localhost', port: 5001 } }

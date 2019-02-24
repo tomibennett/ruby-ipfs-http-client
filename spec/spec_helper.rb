@@ -28,4 +28,4 @@ RSpec.configure do |config|
   WebMock.disable_net_connect!(allow_localhost: true)
 end
 
-require_relative '../lib/client'
+require_relative '../lib/ruby-ipfs-api/client'

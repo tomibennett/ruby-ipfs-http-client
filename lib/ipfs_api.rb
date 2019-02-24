@@ -1,6 +1,5 @@
-require_relative './client'
-require_relative './file'
+require_relative './ruby-ipfs-api/client'
+require_relative './ruby-ipfs-api/file'
 
 module Ipfs
-  VERSION = '0.5.1'
 end
