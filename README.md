@@ -29,3 +29,7 @@ Those are hard-coded at the moment :(
 This class is intended to manipulate files through Ipfs.
 
 Methods are documented [here](https://www.rubydoc.info/gems/ruby-ipfs-http-client/Ipfs/File)
+
+# Want to Contribute
+
+You can have an overview of the library's design in [CONTRIBUTING.md](./CONTRIBUTING.md).
