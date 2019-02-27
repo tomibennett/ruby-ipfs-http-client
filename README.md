@@ -1,6 +1,5 @@
 [![Gem Version](https://badge.fury.io/rb/ruby-ipfs-http-client.svg)](https://badge.fury.io/rb/ruby-ipfs-http-client)
 [![Build Status](https://travis-ci.org/tbenett/ruby-ipfs-http-client.svg?branch=master)](https://travis-ci.org/tbenett/ruby-ipfs-http-client)
-[![Coverage Status](https://coveralls.io/repos/github/tbenett/ruby-ipfs-http-client/badge.svg?branch=master)](https://coveralls.io/github/tbenett/ruby-ipfs-http-client?branch=master)
 
 # ruby-ipfs-http-client
 

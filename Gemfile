@@ -7,8 +7,4 @@ gem 'rake', '~> 12.0.0'
 gem 'yard', '~> 0.9.12'
 gem 'rubocop', '~> 0.65.0', require: false
 
-group :test do
-  gem 'coveralls', require: false
-end
-
 gemspec
