@@ -33,3 +33,4 @@ Methods are documented [here](https://www.rubydoc.info/gems/ruby-ipfs-http-clien
 # Want to Contribute
 
 You can have an overview of the library's design in [CONTRIBUTING.md](./CONTRIBUTING.md).
+Yes Let's Contribute !
