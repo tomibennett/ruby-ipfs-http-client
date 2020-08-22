@@ -13,7 +13,7 @@ module Ipfs
 
       def up?
         begin
-          HTTP.get("http://#{@host}:#{@port}#{DEFAULT_BASE_PATH}/id")
+          HTTP.post("http://#{@host}:#{@port}#{DEFAULT_BASE_PATH}/id")
           true
         rescue HTTP::ConnectionError
           false

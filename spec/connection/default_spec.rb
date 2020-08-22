@@ -19,7 +19,7 @@ RSpec.describe Ipfs::Connection::Default do
   describe '#up?' do
     context 'the connection fails' do
       before do
-        stub_request(:get, "http://#{location[:host]}:#{location[:port]}/api/v0/id")
+        stub_request(:post, "http://#{location[:host]}:#{location[:port]}/api/v0/id")
           .to_raise HTTP::ConnectionError
       end
 
@@ -30,7 +30,7 @@ RSpec.describe Ipfs::Connection::Default do
 
     context 'the connection succeed' do
       before do
-        stub_request(:get, "http://#{location[:host]}:#{location[:port]}/api/v0/id")
+        stub_request(:post, "http://#{location[:host]}:#{location[:port]}/api/v0/id")
       end
 
       it 'returns true' do
