@@ -29,8 +29,8 @@ RSpec.describe Ipfs::BasicRequest do
   describe '#verb' do
     let(:id_request) { described_class.new id_path }
 
-    it 'gives back the GET HTTP verb' do
-      expect(id_request.verb).to eq :get
+    it 'gives back the POST HTTP verb' do
+      expect(id_request.verb).to eq :post
     end
   end
 

@@ -19,8 +19,8 @@ describe Ipfs::Command::Ls do
         expect(request.path).to eq described_class::PATH
       end
 
-      it 'has a request where the verb is GET' do
-        expect(request.verb).to eq :get
+      it 'has a request where the verb is POST' do
+        expect(request.verb).to eq :post
       end
 
       it 'has a request options containing the multihash' do
