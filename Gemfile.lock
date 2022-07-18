@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     ruby-ipfs-http-client (0.5.1)
+      http (>= 4.0.5)
 
 GEM
   remote: https://rubygems.org/
@@ -71,7 +72,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  http (~> 4.0.5)
   rake (~> 12.3.3)
   rspec (~> 3.8.0)
   rubocop (~> 0.65.0)
