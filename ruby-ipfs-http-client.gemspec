@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   s.required_ruby_version = '>= 2.4'
+  s.add_dependency 'http', '>= 4.0.5'
 
   s.add_development_dependency 'rspec', '~> 3.8.0'
   s.add_development_dependency 'webmock', '~>3.5.1'
