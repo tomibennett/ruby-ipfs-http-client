@@ -65,7 +65,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
-    yard (0.9.20)
+    yard (0.9.36)
 
 PLATFORMS
   ruby
@@ -77,7 +77,7 @@ DEPENDENCIES
   rubocop (~> 0.65.0)
   ruby-ipfs-http-client!
   webmock (~> 3.5.1)
-  yard (~> 0.9.20)
+  yard (~> 0.9.36)
 
 RUBY VERSION
    ruby 2.6.1p33
